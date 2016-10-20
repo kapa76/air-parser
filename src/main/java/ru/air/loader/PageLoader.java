@@ -29,13 +29,13 @@ public class PageLoader {
             System.out.println("Response Code : " + statusCode);
 
             if(statusCode == 200) {
-                StringBuilder sb = new StringBuilder();
-                String line;
-
-                BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-                while ((line = rd.readLine()) != null) {
-                    sb.append(line);
-                }
+//                StringBuilder sb = new StringBuilder();
+//                String line;
+//
+//                BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+//                while ((line = rd.readLine()) != null) {
+//                    sb.append(line);
+//                }
 
                 body = EntityUtils.toString(response.getEntity(), "UTF-8");
             }
