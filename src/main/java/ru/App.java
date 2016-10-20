@@ -2,6 +2,7 @@ package ru;
 
 import com.gargoylesoftware.htmlunit.*;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import ru.air.common.AirportEnum;
 import ru.air.loader.PageLoader;
 import ru.air.loader.js.SimpleLoader;
 
@@ -14,15 +15,22 @@ import java.util.logging.Level;
 
 public class App {
 
-    public static void main(String[] args) throws IOException {
+
+    public App(){
         java.util.logging.Logger.getLogger("com.gargoylesoftware.htmlunit").setLevel(Level.OFF);
+    }
 
+    public void load(){
 
-        HtmlPage page = SimpleLoader.Loader("http://www.koltsovo.ru/ru/onlayn_tablo");
+        SimpleLoader loader = new SimpleLoader(AirportEnum.EKATERINBURG);
+        loader.load();
 
+    }
 
-        String str = page.asXml();
+    public static void main(String[] args) throws IOException {
 
+        App app = new App();
+        app.load();
 
     }
 
