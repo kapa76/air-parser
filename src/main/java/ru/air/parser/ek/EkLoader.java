@@ -10,17 +10,19 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import ru.air.common.AirportEnum;
+import ru.air.common.CommonDateUtil;
 import ru.air.parser.ek.entity.FlightTr;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Admin on 20.10.2016.
  */
 public class EkLoader {
+
+    private static TimeZone EKATERINBURG_TZ = CommonDateUtil.getTimeZone("Ekaterinburg");
 
     private WebClient webClient;
     private AirportEnum airport;
@@ -42,26 +44,20 @@ public class EkLoader {
         str = yesterday.asXml();
     }
 
-    private void parse(HtmlPage today) {
+    private Set<FlightTr> parse(HtmlPage today) {
         DomElement dom = today.getFirstByXPath("//table[@class='online']");
 
         List<DomElement> trs = (List<DomElement>) dom.getByXPath("//tr");
 
+
+        Set<FlightTr> allFlight = new LinkedHashSet<FlightTr>();
+
         for (DomElement elem : trs) {
             String source = elem.asXml();
-            if(source.contains("<TR onclick=")) {
-                // elem.getByXPath("TD");
+            if (source.contains("<TR onclick=")) {
+                List<DomElement> tds = (List<DomElement>) elem.getByXPath("TD");
 
-                //заполняем строку одного рейса и забираем ее детали после этого.
-                FlightTr flightTr = new FlightTr();
-
-                String flightNumber; //рейс
-                String direction; //направление
-                String typeBC; //тип ВС
-                Date planeDate; //плановое время
-                Date factDate; //ожидаемое / фактическое время
-                String status; //статус
-                String description; //примечание
+                allFlight.add(fillFlightRecordByTR(tds));
 
                 ScriptResult scriptResult = today.executeJavaScript(elem.getAttribute("onclick"));
                 HtmlPage page2 = (HtmlPage) scriptResult.getNewPage();
@@ -79,8 +75,27 @@ public class EkLoader {
             }
         }
 
+        System.out.println("Найдено: " + allFlight.size() + ", рейсов.");
+        return allFlight;
+    }
 
+    private FlightTr fillFlightRecordByTR(List<DomElement> tds) {
+        //заполняем строку одного рейса и забираем ее детали после этого.
+        String flightNumber = tds.get(1).getFirstElementChild().getTextContent();
+        String directionFrom = tds.get(2).asText();
+        String typeBC = tds.get(3).asText();
 
+        //варианты 23 okt 14:55 или 14:50
+        Date planeDate = CommonDateUtil.convertDDMonHHMin(tds.get(4).asText(), EKATERINBURG_TZ); //плановое время
+
+        //варианты 23 okt 14:55 или 14:50
+        Date factDate = CommonDateUtil.convertDDMonHHMinORHHMin(tds.get(5).asText(), EKATERINBURG_TZ); //ожидаемое / фактическое время
+
+        String status = tds.get(7).asText();  //статус
+        String description = tds.get(8).asText();
+        ; //примечание
+
+        return new FlightTr(flightNumber, directionFrom, typeBC, planeDate, factDate, status, description);
     }
 
 

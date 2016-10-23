@@ -5,15 +5,26 @@ import java.util.Date;
 
 public class FlightTr implements Serializable {
     private String flightNumber; //рейс
-    private String direction; //направление
+    private String directionFrom; //направление
     private String typeBC; //тип ВС
     private Date planeDate; //плановое время
     private Date factDate; //ожидаемое / фактическое время
     private String status; //статус
     private String description; //примечание
+    private String baggage;
 
-    public FlightTr(){
+    public FlightTr() {
 
+    }
+
+    public FlightTr(String flightNumber, String directionFrom, String typeBC, Date planeDate, Date factDate, String status, String description) {
+        this.flightNumber = flightNumber;
+        this.directionFrom = directionFrom;
+        this.typeBC = typeBC;
+        this.planeDate = planeDate;
+        this.factDate = factDate;
+        this.status = status;
+        this.description = description;
     }
 
     public String getFlightNumber() {
@@ -24,12 +35,12 @@ public class FlightTr implements Serializable {
         this.flightNumber = flightNumber;
     }
 
-    public String getDirection() {
-        return direction;
+    public String getDirectionFrom() {
+        return directionFrom;
     }
 
-    public void setDirection(String direction) {
-        this.direction = direction;
+    public void setDirectionFrom(String directionFrom) {
+        this.directionFrom = directionFrom;
     }
 
     public String getTypeBC() {
@@ -70,5 +81,13 @@ public class FlightTr implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getBaggage() {
+        return baggage;
+    }
+
+    public void setBaggage(String baggage) {
+        this.baggage = baggage;
     }
 }
