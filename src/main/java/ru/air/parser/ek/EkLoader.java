@@ -71,6 +71,8 @@ public class EkLoader {
                 //таблица маршрутов
                 Element path = (docSource.select("div.grayblock.yellowblock").first()).select("table").first();
 
+                Elements trs2 = path.select("tr");
+                parseDetailRout(trs2);
 
             }
         }
@@ -79,7 +81,27 @@ public class EkLoader {
         return allFlight;
     }
 
+    private void parseDetailRout(Elements rows) {
+
+        if (rows.size() > 3) {
+            System.out.println("Длинный маршрут");
+        }
+
+        for (int i = 1; i < rows.size(); i++) { //first row is the col names so skip it.
+            Element row = rows.get(i);
+            Elements cols = row.select("td");
+
+            String from = cols.get(0).text();
+            String statusDate = cols.get(1).text();
+
+        }
+
+
+    }
+
     private FlightTr fillFlightRecordByTR(List<DomElement> tds) {
+        //Парсим одну строку таблицы на странице из таблицы рейсов
+
         //заполняем строку одного рейса и забираем ее детали после этого.
         String flightNumber = tds.get(1).getFirstElementChild().getTextContent();
         String directionFrom = tds.get(2).asText();

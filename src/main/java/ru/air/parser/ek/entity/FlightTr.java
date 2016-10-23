@@ -2,6 +2,8 @@ package ru.air.parser.ek.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 public class FlightTr implements Serializable {
     private String flightNumber; //рейс
@@ -13,8 +15,9 @@ public class FlightTr implements Serializable {
     private String description; //примечание
     private String baggage;
 
-    public FlightTr() {
+    private List<Routing> route = new LinkedList<Routing>();
 
+    public FlightTr() {
     }
 
     public FlightTr(String flightNumber, String directionFrom, String typeBC, Date planeDate, Date factDate, String status, String description) {
