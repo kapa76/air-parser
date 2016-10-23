@@ -93,4 +93,12 @@ public class FlightTr implements Serializable {
     public void setBaggage(String baggage) {
         this.baggage = baggage;
     }
+
+    public List<Routing> getRoute() {
+        return route;
+    }
+
+    public void setRoute(List<Routing> route) {
+        this.route = route;
+    }
 }

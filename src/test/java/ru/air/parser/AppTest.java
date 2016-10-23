@@ -8,39 +8,37 @@ import ru.air.common.CommonDateUtil;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.TimeZone;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Unit test for simple App.
  */
-public class AppTest 
-    extends TestCase
-{
+public class AppTest
+        extends TestCase {
     /**
      * Create the test case
      *
      * @param testName name of the test case
      */
-    public AppTest( String testName )
-    {
-        super( testName );
+    public AppTest(String testName) {
+        super(testName);
     }
 
     /**
      * @return the suite of tests being tested
      */
-    public static Test suite()
-    {
-        return new TestSuite( AppTest.class );
+    public static Test suite() {
+        return new TestSuite(AppTest.class);
     }
 
     /**
      * Rigourous Test :-)
      */
-    public void testApp()
-    {
+    public void testApp() {
         testConvertDate();
-
     }
+
 
     public void testConvertDate() {
         TimeZone zone = TimeZone.getTimeZone("Europe/Moscow");
@@ -50,7 +48,7 @@ public class AppTest
         SimpleDateFormat formatter = new SimpleDateFormat("d MMM H:m");
         formatter.setTimeZone(zone);
         try {
-            System.out.println( formatter.parse("23 Окт 11:10") );
+            System.out.println(formatter.parse("23 Окт 11:10"));
         } catch (ParseException e) {
             e.printStackTrace();
         }

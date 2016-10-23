@@ -2,6 +2,7 @@ package ru.air.common;
 
 import org.apache.commons.httpclient.util.DateUtil;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -13,7 +14,7 @@ import static org.apache.http.client.utils.DateUtils.GMT;
 public class CommonDateUtil {
 
     public static Date convertDDMonHHMin(String strDate, TimeZone tz) {
-        SimpleDateFormat formatter = new SimpleDateFormat("d MMM H:m");
+        SimpleDateFormat formatter = new SimpleDateFormat("dd MMM H:m");
         //formatter.setTimeZone(tz);
         try {
             return formatter.parse(strDate);
@@ -49,5 +50,31 @@ public class CommonDateUtil {
         }
 
         return zone;
+    }
+
+    public static Date convertHMdmy(String strDate) {
+        //17:15 23.10.2016
+        DateFormat df = new SimpleDateFormat("H:m dd.mm.yyyy");
+        Date result = null;
+        try {
+            result =  df.parse(strDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+    public static Date convertHM(String strDate) {
+        // 17:15
+        DateFormat df = new SimpleDateFormat("H:m");
+        Date result = null;
+        try {
+            result =  df.parse(strDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return result;
     }
 }

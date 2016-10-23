@@ -7,54 +7,42 @@ import java.util.Date;
  * Created by Admin on 23.10.2016.
  */
 public class Routing implements Serializable {
-    private String fromAirport;
-    private String toAirport;
+    private String airportDestination;
 
-    private Date departureTime;
-    private Date departureLocalTime;
-    private Date arrivalTime;
+    private Date delayTime;
+    private Date delayLocaltime;
 
     public Routing(){
 
     }
 
-    public String getFromAirport() {
-        return fromAirport;
+    public Routing(String airportName, Date currDateTime, Date localDateTime) {
+        this.airportDestination = airportName;
+        this.delayTime = currDateTime;
+        this.delayLocaltime = localDateTime;
     }
 
-    public void setFromAirport(String fromAirport) {
-        this.fromAirport = fromAirport;
+    public Date getDelayTime() {
+        return delayTime;
     }
 
-    public String getToAirport() {
-        return toAirport;
+    public void setDelayTime(Date delayTime) {
+        this.delayTime = delayTime;
     }
 
-    public void setToAirport(String toAirport) {
-        this.toAirport = toAirport;
+    public Date getDelayLocaltime() {
+        return delayLocaltime;
     }
 
-    public Date getDepartureTime() {
-        return departureTime;
+    public void setDelayLocaltime(Date delayLocaltime) {
+        this.delayLocaltime = delayLocaltime;
     }
 
-    public void setDepartureTime(Date departureTime) {
-        this.departureTime = departureTime;
+    public String getAirportDestination() {
+        return airportDestination;
     }
 
-    public Date getDepartureLocalTime() {
-        return departureLocalTime;
-    }
-
-    public void setDepartureLocalTime(Date departureLocalTime) {
-        this.departureLocalTime = departureLocalTime;
-    }
-
-    public Date getArrivalTime() {
-        return arrivalTime;
-    }
-
-    public void setArrivalTime(Date arrivalTime) {
-        this.arrivalTime = arrivalTime;
+    public void setAirportDestination(String airportDestination) {
+        this.airportDestination = airportDestination;
     }
 }
