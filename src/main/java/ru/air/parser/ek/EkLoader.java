@@ -12,6 +12,7 @@ import org.jsoup.select.Elements;
 import ru.air.common.AirportEnum;
 import ru.air.common.CommonDateUtil;
 import ru.air.common.CommonUtil;
+import ru.air.parser.BaseLoader;
 import ru.air.parser.ek.entity.FlightTr;
 import ru.air.parser.ek.entity.Routing;
 
@@ -22,24 +23,16 @@ import java.util.*;
 /**
  * Created by Admin on 20.10.2016.
  */
-public class EkLoader {
+public class EkLoader extends BaseLoader {
 
     private static TimeZone EKATERINBURG_TZ = CommonDateUtil.getTimeZone("Ekaterinburg");
 
-    private WebClient webClient;
-    private AirportEnum airport;
-
     public EkLoader(AirportEnum airport) {
-        this.airport = airport;
-        this.webClient = new WebClient();
-        webClient.setAjaxController(new NicelyResynchronizingAjaxController());
-        webClient.getOptions().setThrowExceptionOnScriptError(false);
+        super(airport);
     }
 
     public Set<FlightTr> load() {
-        String str = "";
-
-        HtmlPage today = getHtmlPage();
+        HtmlPage today = getHtmlPage(2000);
         Set<FlightTr> todayFlight = parse(today);
 
         HtmlPage yesterday = getHtmlPageAfterClick(today);
@@ -64,13 +57,12 @@ public class EkLoader {
                 String doc = page2.asXml();
                 Document docSource = Jsoup.parse(doc);
 
-                String airName = docSource.select("h3").first().text();
-                //полный исходник
-                Elements es = (docSource.select("div.grayblock.yellowblock").first()).select("div");
+//                String airName = docSource.select("h3").first().text();
+//                //полный исходник
+//                Elements es = (docSource.select("div.grayblock.yellowblock").first()).select("div");
 
                 //таблица маршрутов
                 Element path = (docSource.select("div.grayblock.yellowblock").first()).select("table").first();
-
                 Elements trs2 = path.select("tr");
 
                 FlightTr flightTr = fillFlightRecordByTR(tds);
@@ -143,22 +135,6 @@ public class EkLoader {
         ; //примечание
 
         return new FlightTr(flightNumber, directionFrom, typeBC, planeDate, factDate, status, description);
-    }
-
-    private HtmlPage getHtmlPage() {
-        HtmlPage page = null;
-        try {
-            page = (HtmlPage) webClient.getPage(airport.getUrl());
-            webClient.waitForBackgroundJavaScript(2 * 1000);
-        } catch (ScriptException scriptException) {
-            System.out.println("Loader: " + scriptException.getMessage());
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return page;
     }
 
     private HtmlPage getHtmlPageAfterClick(HtmlPage page) {

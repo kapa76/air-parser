@@ -2,6 +2,7 @@ package ru;
 
 import ru.air.parser.AirParser;
 import ru.air.parser.Ek;
+import ru.air.parser.Kr;
 
 
 import java.io.*;
@@ -36,8 +37,8 @@ public class App {
 
         AirParser airParser = null;
         switch(airNumber){
-            case 1 : airParser = new Ek();
-            case 2 :
+            case 1 : airParser = new Ek(); break;
+            case 2 : airParser = new Kr(); break;
             case 3 :
             case 4 :
             case 5 :
