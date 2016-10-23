@@ -1,52 +1,44 @@
-package ru.air.loader.js;
+package ru.air.parser.ek;
 
 import com.gargoylesoftware.htmlunit.NicelyResynchronizingAjaxController;
 import com.gargoylesoftware.htmlunit.ScriptException;
 import com.gargoylesoftware.htmlunit.ScriptResult;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.*;
-import com.gargoylesoftware.htmlunit.javascript.background.JavaScriptJobManager;
-import com.gargoylesoftware.htmlunit.javascript.host.Iterator;
-import com.gargoylesoftware.htmlunit.javascript.host.html.HTMLDivElement;
-import com.gargoylesoftware.htmlunit.javascript.host.html.HTMLElement;
-import com.gargoylesoftware.htmlunit.javascript.host.html.HTMLTableElement;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import ru.air.common.AirportEnum;
+import ru.air.parser.ek.entity.FlightTr;
 
-import javax.swing.text.TableView;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.Date;
 import java.util.List;
 
 /**
  * Created by Admin on 20.10.2016.
  */
-public class SimpleLoader {
+public class EkLoader {
 
     private WebClient webClient;
     private AirportEnum airport;
 
-    public SimpleLoader(AirportEnum airport) {
+    public EkLoader(AirportEnum airport) {
         this.airport = airport;
         this.webClient = new WebClient();
         webClient.setAjaxController(new NicelyResynchronizingAjaxController());
         webClient.getOptions().setThrowExceptionOnScriptError(false);
     }
 
-    private HtmlPage LoadTodayData() {
-        return getPage();
-    }
-
     public void load() {
         String str = "";
 
-        HtmlPage today = LoadTodayData();
+        HtmlPage today = getHtmlPage();
         parse(today);
 
-        HtmlPage yesterday = LoadYesterdayData(today);
+        HtmlPage yesterday = getHtmlPageAfterClick(today);
         str = yesterday.asXml();
     }
 
@@ -59,6 +51,17 @@ public class SimpleLoader {
             String source = elem.asXml();
             if(source.contains("<TR onclick=")) {
                 // elem.getByXPath("TD");
+
+                //заполняем строку одного рейса и забираем ее детали после этого.
+                FlightTr flightTr = new FlightTr();
+
+                String flightNumber; //рейс
+                String direction; //направление
+                String typeBC; //тип ВС
+                Date planeDate; //плановое время
+                Date factDate; //ожидаемое / фактическое время
+                String status; //статус
+                String description; //примечание
 
                 ScriptResult scriptResult = today.executeJavaScript(elem.getAttribute("onclick"));
                 HtmlPage page2 = (HtmlPage) scriptResult.getNewPage();
@@ -81,7 +84,7 @@ public class SimpleLoader {
     }
 
 
-    private HtmlPage getPage() {
+    private HtmlPage getHtmlPage() {
         HtmlPage page = null;
         try {
             page = (HtmlPage) webClient.getPage(airport.getUrl());
@@ -97,7 +100,7 @@ public class SimpleLoader {
         return page;
     }
 
-    private HtmlPage LoadYesterdayData(HtmlPage page) {
+    private HtmlPage getHtmlPageAfterClick(HtmlPage page) {
         HtmlPage result = null;
         try {
             HtmlAnchor link = page.getAnchorByText("за прошлые сутки");
