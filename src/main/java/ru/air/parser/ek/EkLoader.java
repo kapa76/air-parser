@@ -1,10 +1,24 @@
 package ru.air.parser.ek;
 
-import com.gargoylesoftware.htmlunit.NicelyResynchronizingAjaxController;
 import com.gargoylesoftware.htmlunit.ScriptException;
 import com.gargoylesoftware.htmlunit.ScriptResult;
-import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.*;
+import org.apache.http.Header;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.message.BasicHeader;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.protocol.HTTP;
+import org.apache.http.util.EntityUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -17,13 +31,13 @@ import ru.air.parser.ek.entity.FlightTr;
 import ru.air.parser.ek.entity.Routing;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.util.*;
 
-/**
- * Created by Admin on 20.10.2016.
- */
 public class EkLoader extends BaseLoader {
+
+    private static String USER_AGENT = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.71 Safari/537.36";
 
     private static TimeZone EKATERINBURG_TZ = CommonDateUtil.getTimeZone("Ekaterinburg");
 
@@ -32,14 +46,18 @@ public class EkLoader extends BaseLoader {
     }
 
     public Set<FlightTr> load() {
-        HtmlPage today = getHtmlPage(2000);
-        Set<FlightTr> todayFlight = parse(today);
-
-        HtmlPage yesterday = getHtmlPageAfterClick(today);
-        Set<FlightTr> yesterdayFlight = parse(yesterday);
-
-        todayFlight.addAll(yesterdayFlight);
-        return todayFlight;
+        try {
+            test();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+//        HtmlPage today = getHtmlPage(2000);
+//        Set<FlightTr> todayFlight = parse(today);
+//        HtmlPage yesterday = getHtmlPageAfterClick(today);
+//        Set<FlightTr> yesterdayFlight = parse(yesterday);
+//        todayFlight.addAll(yesterdayFlight);
+//        return todayFlight;
+        return null;
     }
 
     private Set<FlightTr> parse(HtmlPage today) {
@@ -113,6 +131,63 @@ public class EkLoader extends BaseLoader {
         }
 
         return new Routing(airportName, currDateTime, localDateTime);
+    }
+
+
+    private String test() throws UnsupportedEncodingException {
+        HttpClient client = HttpClientBuilder.create().build();
+        HttpResponse response = null;
+
+        try {
+            HttpGet get = new HttpGet("http://www.koltsovo.ru/ru/onlayn_tablo");
+            get.addHeader("Content-Type","application/x-www-form-urlencoded; charset=windows-1251");
+            get.addHeader("Accept", "*/*");
+            get.addHeader("Accept-Encoding", "gzip, deflate");
+            get.addHeader("Accept-Language", "ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4,fr;q=0.2");
+            get.addHeader("Connection", "keep-alive");
+            client.execute(get);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        HttpPost post = new HttpPost("http://www.koltsovo.ru/1linetablo.ajax.5.19.php?arrive24");
+        post.addHeader("Accept", "*/*");
+        post.addHeader("Accept-Encoding", "gzip, deflate");
+        post.addHeader("Connection", "keep-alive");
+        post.addHeader("Expired", "Fri, 1 Mar 2014 01:01:01 GMT");
+        post.addHeader(new BasicHeader(HTTP.CONTENT_TYPE, "application/x-www-form-urlencoded; charset=UTF-8"));
+        post.addHeader("Cookie", "_ym_uid=1476857168363842848; _ga=GA1.2.651286294.1476857168; _ym_isad=2; __utmt=1; __utma=158817440.651286294.1476857168.1477296892.1477305365.12; __utmb=158817440.1.10.1477305365; __utmc=158817440; __utmz=158817440.1476857168.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); rbsbbx=1; s=3eb9e41099bbe8e680a6d2c4005980bb");
+        post.addHeader("Host","www.koltsovo.ru");
+        post.addHeader("Origin","http://www.koltsovo.ru");
+        post.addHeader("Referer","http://www.koltsovo.ru/ru/onlayn_tablo");
+        post.addHeader("User-Agent","Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.71 Safari/537.36");
+
+        List<NameValuePair> postParameters = new ArrayList<NameValuePair>();
+        postParameters.add(new BasicNameValuePair("arrive", "1"));
+        postParameters.add(new BasicNameValuePair("uag", USER_AGENT));
+        postParameters.add(new BasicNameValuePair("rip", "91.246.100.79"));
+
+        UrlEncodedFormEntity entity = new UrlEncodedFormEntity(postParameters);
+        post.setEntity(entity);
+
+        String body = "";
+        try {
+            response = client.execute(post);
+            int statusCode = response.getStatusLine().getStatusCode();
+
+            for (Header h : response.getAllHeaders()) {
+                System.out.println(h.getName() + ": " + h.getValue());
+            }
+
+            if (statusCode == 200) {
+                body = EntityUtils.toString(response.getEntity());
+            }
+        } catch (IOException exception) {
+            System.out.println("PageLoader: can't load page: " + exception.getMessage());
+        }
+
+        System.out.println("Body size: " + body.length());
+
+        return body;
     }
 
 

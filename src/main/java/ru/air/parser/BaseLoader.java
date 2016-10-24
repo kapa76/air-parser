@@ -30,6 +30,7 @@ public class BaseLoader {
         this.webClient = new WebClient();
         webClient.setAjaxController(new NicelyResynchronizingAjaxController());
         webClient.getOptions().setThrowExceptionOnScriptError(false);
+        webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
     }
 
     public HtmlPage getHtmlPage() {

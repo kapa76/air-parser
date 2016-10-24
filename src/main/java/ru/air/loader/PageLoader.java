@@ -26,26 +26,14 @@ public class PageLoader {
             httpGet.setHeader("User-Agent", USER_AGENT);
             HttpResponse response = client.execute(httpGet);
             int statusCode = response.getStatusLine().getStatusCode();
-            System.out.println("Response Code : " + statusCode);
 
             if(statusCode == 200) {
-//                StringBuilder sb = new StringBuilder();
-//                String line;
-//
-//                BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-//                while ((line = rd.readLine()) != null) {
-//                    sb.append(line);
-//                }
-
                 body = EntityUtils.toString(response.getEntity(), "UTF-8");
             }
         } catch(IOException exception){
             System.out.println("PageLoader: can't load page: " + exception.getMessage() );
         }
 
-
-
         return body;
     }
-
 }

@@ -6,7 +6,11 @@ import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.javascript.host.html.HTMLLIElement;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 import ru.air.common.AirportEnum;
+import ru.air.loader.PageLoader;
 import ru.air.parser.BaseLoader;
 import ru.air.parser.ek.entity.FlightTr;
 
@@ -20,34 +24,20 @@ public class KrLoader extends BaseLoader {
         super(airportEnum);
     }
 
-    private HtmlPage getHtmlPageAfterClickArrival(HtmlPage page) {
-        HtmlPage result = null;
-        try {
-            HTMLLIElement li = (HTMLLIElement)page.getByXPath( "/li[class='tabs__item arrive tabs__item_active']");
-            li.click();
-
-        } catch (ScriptException scriptException) {
-            System.out.println("Loader: " + scriptException.getMessage());
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return result;
-    }
-
     public Set<FlightTr> load() {
-        getHtmlPageAfterClickArrival(getHtmlPage());
+
+        HtmlPage aa = getHtmlPage(3000);
 
 
-//        Set<FlightTr> todayFlight = parse(today);
-//
-//        HtmlPage yesterday = getHtmlPageAfterClick(today);
-//        Set<FlightTr> yesterdayFlight = parse(yesterday);
-//
-//        todayFlight.addAll(yesterdayFlight);
-//        return todayFlight;
+        String body = PageLoader.Loader(getUrl());
+        Document doc = Jsoup.parse(body);
+
+        Elements masthead = doc.select("div.tabs__content");
+
+        //table_online-tablo-mob
+        // masthead.select();
+
+
         return null;
     }
 }

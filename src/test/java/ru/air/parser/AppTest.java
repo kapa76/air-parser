@@ -41,18 +41,6 @@ public class AppTest
 
 
     public void testConvertDate() {
-        TimeZone zone = TimeZone.getTimeZone("Europe/Moscow");
-        zone.setRawOffset(zone.getRawOffset() + 2 * 60 * 60 * 1000);
-        zone.setID("Ekaterinburg");
 
-        SimpleDateFormat formatter = new SimpleDateFormat("d MMM H:m");
-        formatter.setTimeZone(zone);
-        try {
-            System.out.println(formatter.parse("23 Окт 11:10"));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        System.out.println(zone);
     }
 }
