@@ -17,6 +17,14 @@
             <version>1.7.2</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-mapper-asl</artifactId>
+            <version>1.9.13</version>
+        </dependency>
+
+
         <!-- https://mvnrepository.com/artifact/htmlunit/htmlunit -->
         <!--<dependency>-->
             <!--<groupId>htmlunit</groupId>-->

@@ -2,6 +2,7 @@ package ru;
 
 import ru.air.parser.AirParser;
 import ru.air.parser.Ek;
+import ru.air.parser.Er;
 import ru.air.parser.Kr;
 
 
@@ -42,7 +43,7 @@ public class App {
             case 3 :
             case 4 :
             case 5 :
-            case 6 :
+            case 6 : airParser = new Er(); break;
             case 7 :
             case 8 :
             case 9 :

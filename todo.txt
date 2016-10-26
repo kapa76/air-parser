@@ -1,0 +1,38 @@
+
+
+
+
+http://zvartnots.am/new/get_data.php?minus_hour=-10&plus_hour=12&dir=arr&lg=ru&tp=hour&_=1477471632547
+
+6. EVN - Ереван (Звартноц) http://zvartnots.am/new/             - забрать по урлу get
+
+
+
+1. SVX - Екатеринбург (Кольцово) http://www.koltsovo.ru/ru/onlayn_tablo
+2. KRR - Краснодар (Пашковский) http://basel.aero/krasnodar/passengers/online-schedule/
+3. AER - Сочи http://basel.aero/sochi/passengers/online-schedule/
+4. KUF - Самара (Курумоч) http://airport.samara.ru/ru/onlayn_tablo
+5. KHV - Хабаровск (Новый) http://airkhv.ru/index.php?option=com_tablo&lang=ru
+7. VVO - Владивосток (Кневичи) http://vvo.aero
+8. KZN - Казань http://www.kazan.aero
+9. IKT - Иркутск http://iktport.ru/component/option,com_tarchive/Itemid,122/task,prilet/arc,1/   httpget !!
+10. DYU - Душанбе http://airport.tj/index.php/ru/tablo
+
+
+
+"airport_id": "HKG", - аэропорт вылета, правильно я понимаю.
+"arrivals": [
+
+airport_id - ID Аэропорта (согласно кодировки IATA)
+arrivals - массив с данными о прилетах
+flightno - номер рейса (согласно кодировки IATA)
+scheduled - дата/время приземления по расписанию по местному времени аэропорта в формате YYYY-mm-dd HH:MM:SS
+estimated - прогнозируемые дата/время приземления (если есть) по местному времени аэропорта в формате YYYY-mm-dd HH:MM:SS
+actual - фактические дата/время приземления (если есть) по местному времени аэропорта в формате YYYY-mm-dd HH:MM:SS
+status - один из:
+unknown - статус неизвестен
+scheduled - рейс идет по расписанию
+expected - ожидается скорая посадка
+delayed - рейс задерживается
+landed - приземлился
+cancelled - рейс отменен

@@ -14,6 +14,9 @@ import java.net.MalformedURLException;
  */
 public class BaseLoader {
 
+    private int minusHour = -4;
+    private int plusHour = 12;
+
     private WebClient webClient;
     private AirportEnum airport;
 
@@ -62,5 +65,21 @@ public class BaseLoader {
         }
 
         return page;
+    }
+
+    public int getMinusHour() {
+        return minusHour;
+    }
+
+    public void setMinusHour(int minusHour) {
+        this.minusHour = minusHour;
+    }
+
+    public int getPlusHour() {
+        return plusHour;
+    }
+
+    public void setPlusHour(int plusHour) {
+        this.plusHour = plusHour;
     }
 }
