@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.ObjectWriter;
 import ru.air.common.AirportEnum;
+import ru.air.entity.Flight;
 import ru.air.parser.ek.entity.FlightTr;
 import ru.air.parser.er.ErLoader;
 import ru.air.parser.kr.KrLoader;
@@ -22,7 +23,7 @@ public class Er implements AirParser {
     }
 
     public String parse() {
-        Set<FlightTr> flight = loader.load();
+        Flight flight = loader.load();
 
         ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
         String json = "";

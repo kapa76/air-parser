@@ -5,6 +5,9 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import ru.air.common.AirportEnum;
+import ru.air.common.ArrivalStatus;
+import ru.air.entity.Flight;
+import ru.air.entity.FlightDetail;
 import ru.air.loader.PageLoader;
 import ru.air.parser.BaseLoader;
 import ru.air.parser.ek.entity.FlightTr;
@@ -27,15 +30,10 @@ public class ErLoader extends BaseLoader {
         super(airport);
     }
 
-    public Set<FlightTr> load() {
-        Set<FlightTr> flightTrSet = new HashSet<FlightTr>();
+    public Flight load() {
+        List<FlightDetail> flightDetailList = new ArrayList<FlightDetail>();
 
-        String url = "http://zvartnots.am/new/get_data.php?minus_hour=" + getMinusHour() + "&plus_hour=" + getPlusHour() + "&dir=arr&lg=ru&tp=hour&_=" + System.currentTimeMillis() % 1000;
-        String body = PageLoader.Loader(url);
-
-        if (body.contains("2###")) {
-            body = body.substring(1, body.length());
-        }
+        String body = loadDataFromSite();
 
         String[] flightString = body.split("@@@@2");
         for (String flightStr : flightString) {
@@ -43,27 +41,55 @@ public class ErLoader extends BaseLoader {
             String[] flightArray = flightStr.split("###");
 
 
-            //public Routing(String airportName, Date currDateTime, Date localDateTime) {
-
             String flightNumber = flightArray[3];
-            String directionFrom = flightArray[4] + " " + flightArray[5];
-            String typeBC = "";
-            Date planeDate = new Date(); //flightArray[7];
-            Date factDate = new Date(); //flightArray[11] 11 parse ?? "{imgarr}26, 11:30"
-            String status = flightArray[10];
-            String description = "";
 
-//            Routing route = new flightArray(directionFrom, new Date()factDate 11, factDate 11 )
-            List<Routing> lr = new ArrayList<Routing>();
-            Routing route = new Routing(directionFrom, new Date(), new Date());
-            lr.add(route);
+            String scheduled = flightArray[7];      // 26.10.2016 13:45 дата/время приземления по расписанию по местному времени аэропорта в формате YYYY-mm-dd HH:MM:SS
+            String estimated;      //прогнозируемые дата/время приземления (если есть) по местному времени аэропорта в формате YYYY-mm-dd HH:MM:SS
+            String actual;         //фактические дата/время приземления (если есть) по местному времени аэропорта в формате YYYY-mm-dd HH:MM:SS
 
-            FlightTr flight = new FlightTr(flightNumber, directionFrom, typeBC, planeDate, factDate, status, description);
-            flight.setRoute(lr);
-            flightTrSet.add(flight);
+//            Date planeDate = new Date(); //flightArray[7];
+//            Date factDate = new Date(); //flightArray[11] 11 parse ?? "{imgarr}26, 11:30"
 
+            ArrivalStatus status;
+
+            if (flightArray[10].equals("Прибыл")) {
+                status = ArrivalStatus.LANDED;
+            } else if (flightArray[10].equals("Опоздание")) {
+
+
+                //status = ArrivalStatus.
+            } else if (flightArray[10].equals("Вовремя")) {
+                status = ArrivalStatus.SCHEDULED;
+            }
+
+            /*
+            private String scheduled;      // дата/время приземления по расписанию по местному времени аэропорта в формате YYYY-mm-dd HH:MM:SS
+            private String estimated;      //прогнозируемые дата/время приземления (если есть) по местному времени аэропорта в формате YYYY-mm-dd HH:MM:SS
+            private String actual;         //фактические дата/время приземления (если есть) по местному времени аэропорта в формате YYYY-mm-dd HH:MM:SS
+            private ArrivalStatus status;
+            */
+
+            //public FlightDetail(String flightNumber, Date scheduled, Date estimated, Date actual, ArrivalStatus status) {
+
+            FlightDetail detail = new FlightDetail();
+            flightDetailList.add(detail);
         }
-        return flightTrSet;
+
+        Flight flight = new Flight();
+        flight.setAirportId(getAirport().getAirportId());
+        flight.setArrivals(flightDetailList);
+        return flight;
+    }
+
+    private String loadDataFromSite() {
+        String url = "http://zvartnots.am/new/get_data.php?minus_hour=" + getMinusHour() + "&plus_hour=" + getPlusHour() + "&dir=arr&lg=ru&tp=hour&_=" + System.currentTimeMillis() % 1000;
+        String body = PageLoader.Loader(url);
+
+        if (body.contains("2###")) {
+            body = body.substring(1, body.length());
+        }
+
+        return body;
     }
 
 

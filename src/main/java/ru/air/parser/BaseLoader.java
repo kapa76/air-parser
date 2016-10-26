@@ -24,6 +24,11 @@ public class BaseLoader {
         return webClient;
     }
 
+
+    public AirportEnum getAirport(){
+        return airport;
+    }
+
     public String getUrl() {
         return airport.getUrl();
     }
