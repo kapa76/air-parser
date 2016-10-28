@@ -4,18 +4,19 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.ObjectWriter;
 import ru.air.common.AirportEnum;
 import ru.air.entity.Flight;
+import ru.air.parser.du.DuLoader;
 import ru.air.parser.er.ErLoader;
 
 import java.io.IOException;
 
 /**
- * Created by kapa on 26.10.16.
+ * Created by kapa on 28.10.16.
  */
-public class Er implements AirParser {
-    private ErLoader loader;
+public class Du implements AirParser {
+    private DuLoader loader;
 
-    public Er() {
-        loader = new ErLoader(AirportEnum.EREWAN);
+    public Du() {
+        loader = new DuLoader(AirportEnum.DUSHANBE);
     }
 
     public String parse() {

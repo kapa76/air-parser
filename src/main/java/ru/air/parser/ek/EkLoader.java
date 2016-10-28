@@ -2,7 +2,9 @@ package ru.air.parser.ek;
 
 import com.gargoylesoftware.htmlunit.ScriptException;
 import com.gargoylesoftware.htmlunit.ScriptResult;
-import com.gargoylesoftware.htmlunit.html.*;
+import com.gargoylesoftware.htmlunit.html.DomElement;
+import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -10,11 +12,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
@@ -60,6 +58,7 @@ public class EkLoader extends BaseLoader {
         return null;
     }
 
+    /*
     private Set<FlightTr> parse(HtmlPage today) {
         DomElement dom = today.getFirstByXPath("//table[@class='online']");
         List<DomElement> trs = (List<DomElement>) dom.getByXPath("//tr");
@@ -96,7 +95,7 @@ public class EkLoader extends BaseLoader {
         System.out.println("Найдено: " + allFlight.size() + ", рейсов.");
         return allFlight;
     }
-
+*/
     private Routing parseDetailRoute(Elements rows) {
 
 //        if (rows.size() > 3) {

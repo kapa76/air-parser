@@ -1,9 +1,6 @@
 package ru;
 
-import ru.air.parser.AirParser;
-import ru.air.parser.Ek;
-import ru.air.parser.Er;
-import ru.air.parser.Kr;
+import ru.air.parser.*;
 
 
 import java.io.*;
@@ -20,8 +17,7 @@ public class App {
     }
 
     public App() {
-
-//        java.util.logging.Logger.getLogger("com.gargoylesoftware.htmlunit").setLevel(Level.OFF);
+        java.util.logging.Logger.getLogger("com.gargoylesoftware.htmlunit").setLevel(Level.OFF);
     }
 
     public void load() {
@@ -55,6 +51,8 @@ public class App {
             case 8:
             case 9:
             case 10:
+                airParser = new Du();
+                break;
             default:
                 break;
         }
