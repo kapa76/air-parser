@@ -49,7 +49,10 @@ public class App {
                 break;
             case 7:
             case 8:
+
             case 9:
+                airParser = new Ir();
+                break;
             case 10:
                 airParser = new Du();
                 break;
