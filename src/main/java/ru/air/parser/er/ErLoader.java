@@ -1,21 +1,19 @@
 package ru.air.parser.er;
 
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
 import ru.air.common.AirportEnum;
 import ru.air.common.ArrivalStatus;
 import ru.air.entity.Flight;
 import ru.air.entity.FlightDetail;
 import ru.air.loader.PageLoader;
 import ru.air.parser.BaseLoader;
-import ru.air.parser.ek.entity.FlightTr;
-import ru.air.parser.ek.entity.Routing;
 
-import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import java.util.TimeZone;
 
 /**
  * Created by kapa on 26.10.16.
@@ -30,6 +28,20 @@ public class ErLoader extends BaseLoader {
         super(airport);
     }
 
+    public static String convertDate(String inputPattern, String outputPattern, String strDate) {
+        DateFormat df = new SimpleDateFormat(inputPattern);
+        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT +4:00"));
+        try {
+            cal.setTime(df.parse(strDate));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        DateFormat output = new SimpleDateFormat(outputPattern);
+        return output.format(cal.getTime());
+
+    }
+
     public Flight load() {
         List<FlightDetail> flightDetailList = new ArrayList<FlightDetail>();
 
@@ -37,41 +49,39 @@ public class ErLoader extends BaseLoader {
 
         String[] flightString = body.split("@@@@2");
         for (String flightStr : flightString) {
-
+            FlightDetail detail = new FlightDetail();
             String[] flightArray = flightStr.split("###");
 
+            detail.setFlightNumber(flightArray[3]);
 
-            String flightNumber = flightArray[3];
+            String inputTimePattern = "dd.MM.yyyy HH:mm";
+            String outputTimePattern = "yyyy-MM-d HH:mm:SS";
 
-            String scheduled = flightArray[7];      // 26.10.2016 13:45 дата/время приземления по расписанию по местному времени аэропорта в формате YYYY-mm-dd HH:MM:SS
-            String estimated;      //прогнозируемые дата/время приземления (если есть) по местному времени аэропорта в формате YYYY-mm-dd HH:MM:SS
-            String actual;         //фактические дата/время приземления (если есть) по местному времени аэропорта в формате YYYY-mm-dd HH:MM:SS
+            detail.setScheduled(convertDate(inputTimePattern, outputTimePattern, flightArray[7]));
 
-//            Date planeDate = new Date(); //flightArray[7];
-//            Date factDate = new Date(); //flightArray[11] 11 parse ?? "{imgarr}26, 11:30"
+            if (flightArray[11].length() > 0) {
+                String actual = flightArray[11].replace("{imgarr}", "");
+                detail.setActual(convertDate("dd, HH:mm", outputTimePattern, actual));
+            } else {
+                detail.setActual("");
+            }
 
-            ArrivalStatus status;
+            if (flightArray[8].length() > 0) {
+                String estimated = flightArray[8];      //прогнозируемые дата/время приземления (если есть) по местному времени аэропорта в формате YYYY-mm-dd HH:MM:SS
+                detail.setEstimated(convertDate("dd, HH:mm", outputTimePattern, estimated));
+            } else {
+                detail.setEstimated("");
+            }
 
+            ArrivalStatus status = ArrivalStatus.UNKNOWN;
             if (flightArray[10].equals("Прибыл")) {
                 status = ArrivalStatus.LANDED;
             } else if (flightArray[10].equals("Опоздание")) {
 
-
-                //status = ArrivalStatus.
             } else if (flightArray[10].equals("Вовремя")) {
                 status = ArrivalStatus.SCHEDULED;
             }
-
-            /*
-            private String scheduled;      // дата/время приземления по расписанию по местному времени аэропорта в формате YYYY-mm-dd HH:MM:SS
-            private String estimated;      //прогнозируемые дата/время приземления (если есть) по местному времени аэропорта в формате YYYY-mm-dd HH:MM:SS
-            private String actual;         //фактические дата/время приземления (если есть) по местному времени аэропорта в формате YYYY-mm-dd HH:MM:SS
-            private ArrivalStatus status;
-            */
-
-            //public FlightDetail(String flightNumber, Date scheduled, Date estimated, Date actual, ArrivalStatus status) {
-
-            FlightDetail detail = new FlightDetail();
+            detail.setStatus(status);
             flightDetailList.add(detail);
         }
 

@@ -1,5 +1,10 @@
 package ru.air.parser;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -9,25 +14,39 @@ import java.util.regex.Pattern;
 public class TestCommon {
 
     public static void main(String[] args) {
+        String dateStr ="28.10.2016 11:45";
 
-        //
-        String test = "2###522885###2###U6 2703###МОСКВА###DME###УРАЛЬСКИЕ АЛ АК АООТ###26.10.2016 11:45#########Прибыл###{imgarr}26, 11:30###26, 09:15###522885###AU627032610201611###EVN###ЕРЕВАН###ЗВАРТНОЦ######A-320###2###30###Российская Федерация (IATA-2)###АРМЕНИЯ######7250########################37.61825###55.75342###4368###+4###44.515054###40.185878######+4###";
-        String pattern = "(\\d*)###(.*)###(\\d*)###(.*)###(\\w*)###(\\w*)###(.*)###(.*)#########(.*)###(.*)###(.*)###(\\d*)###(\\w*)###(\\w*)###(.*)###(.*)######(.*)###(.*)###(.*)###(.*)###(.*)######(.*)########################(.*)###(.*)###(.*)###(.*)###(.*)###(.*)######(.*)###";
+        String pattern = "dd.MM.yyyy HH:mm";
+        DateFormat formatOutput = new SimpleDateFormat(pattern);
 
-        if(test.contains("2###")){
-            test  = test.substring(1, test.length());
+
+        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT +4:00"));
+        try {
+            cal.setTime( formatOutput.parse(dateStr) );
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
 
-        String[] ss = test.split("###");
+        System.out.println("cal: " + cal.getTime());
 
-
-//            System.out.println("Рейс: " + m.group(1));
-//            System.out.println("From: " + m.group(2) + " -> " + m.group(3));
-//            System.out.println("Company: " + m.group(4));
-//            System.out.println("d1: " + m.group(5));
-//            System.out.println("Status: " + m.group(6));m.group(0)
-
-        System.out.println("");
+        String tt = convertDate("dd.MM.yyyy HH:mm", "yyyy-MM-d HH:mm:SS", dateStr);
+        System.out.println("cal: " + tt);
 
     }
+
+    public static String convertDate(String inputPattern, String outputPattern, String strDate){
+        DateFormat df = new SimpleDateFormat(inputPattern);
+        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT +4:00"));
+        try {
+            cal.setTime( df.parse(strDate) );
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        DateFormat output = new SimpleDateFormat(outputPattern);
+        return output.format(cal.getTime());
+
+    }
+
+
 }
