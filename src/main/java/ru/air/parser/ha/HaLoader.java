@@ -1,9 +1,9 @@
-package ru.air.parser.ir;
+package ru.air.parser.ha;
 
 import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
 import ru.air.common.AirportEnum;
 import ru.air.common.ArrivalStatus;
 import ru.air.entity.Flight;
@@ -11,23 +11,29 @@ import ru.air.entity.FlightDetail;
 import ru.air.loader.PageLoader;
 import ru.air.parser.BaseLoader;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.StringReader;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by kapa on 28.10.16.
  */
-public class IrLoader extends BaseLoader {
+public class HaLoader extends BaseLoader {
 
-    private String yesterdayUrl = "http://iktport.ru/component/option,com_tarchive/arc,0/task,prilet/";
-    private String todayUrl = "http://iktport.ru/component/option,com_tarchive/arc,1/task,prilet/";
-    private String tomorrowUrl = "http://iktport.ru/component/option,com_tarchive/arc,2/task,prilet/";
+    private String yesterdayUrl = "http://airkhv.ru/components/com_tablo/ajax-worker.php?kolFlights=0&dateVal=-1";
+    private String todayUrl = "http://airkhv.ru/components/com_tablo/ajax-worker.php?kolFlights=0&dateVal=0";
+    private String tomorrowUrl = "http://airkhv.ru/components/com_tablo/ajax-worker.php?kolFlights=0&dateVal=1";
 
     private String outputTimePattern = "yyyy-MM-d HH:mm:ss";
 
-    public IrLoader(AirportEnum airport) {
+    public HaLoader(AirportEnum airport) {
         super(airport);
     }
 
@@ -93,15 +99,21 @@ public class IrLoader extends BaseLoader {
     private List<FlightDetail> parse(String strBody, int days) {
         List<FlightDetail> detailList = new ArrayList<>();
 
-        Document doc = Jsoup.parse(strBody);
-        Elements trs = doc.select("#tblh").select("table").get(0).select("tbody > tr");
+        org.jsoup.nodes.Document doc = Jsoup.parse(strBody);
+        Elements trs = doc.select("#tabloContent_in").get(0).select("tbody > tr");
+
         for (int i = 1; i < trs.size(); i++) {
             Elements tdList = trs.get(i).select("td");
+
+            String script = trs.get(i).html();
 
             FlightDetail detail = new FlightDetail();
             detail.setStatus(ArrivalStatus.SCHEDULED);
             detail.setEstimated("");
-            detail.setFlightNumber(tdList.get(0).text());
+            detail.setFlightNumber(tdList.get(1).text());
+
+
+            //tdList.get(0).text()
 
             if (tdList.get(3).text().length() > 0) {
                 detail.setScheduled(convertDateWithUpdate("HH:mm (dd-MMM)", tdList.get(3).text()));
@@ -128,6 +140,10 @@ public class IrLoader extends BaseLoader {
 
             detailList.add(detail);
         }
+
+
+
+
 
         return detailList;
     }
