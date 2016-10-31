@@ -6,6 +6,8 @@ http://zvartnots.am/new/get_data.php?minus_hour=-10&plus_hour=12&dir=arr&lg=ru&t
 6. EVN - Ереван (Звартноц) http://zvartnots.am/new/             - забрать по урлу get
 10. DYU - Душанбе http://airport.tj/index.php/ru/tablo
 9. IKT - Иркутск http://iktport.ru/component/option,com_tarchive/Itemid,122/task,prilet/arc,1/   httpget !!
+5. KHV - Хабаровск (Новый) http://airkhv.ru/index.php?option=com_tablo&lang=ru
+
 ------------------------------------
 
 
@@ -17,11 +19,6 @@ http://zvartnots.am/new/get_data.php?minus_hour=-10&plus_hour=12&dir=arr&lg=ru&t
 4. KUF - Самара (Курумоч) http://airport.samara.ru/ru/onlayn_tablo
 1. SVX - Екатеринбург (Кольцово) http://www.koltsovo.ru/ru/onlayn_tablo
 
-5. KHV - Хабаровск (Новый) http://airkhv.ru/index.php?option=com_tablo&lang=ru
-
-http://airkhv.ru/components/com_tablo/ajax-worker.php?kolFlights=0&dateVal=-1
-http://airkhv.ru/components/com_tablo/ajax-worker.php?kolFlights=0&dateVal=0
-http://airkhv.ru/components/com_tablo/ajax-worker.php?kolFlights=0&dateVal=1
 
 
 "airport_id": "HKG", - аэропорт вылета, правильно я понимаю.

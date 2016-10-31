@@ -17,10 +17,7 @@ import java.io.StringReader;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by kapa on 28.10.16.
@@ -54,46 +51,25 @@ public class HaLoader extends BaseLoader {
         return value;
     }
 
-    private String convertDateWithUpdate(String inputPattern, String strDate) {
-        DateFormat df = new SimpleDateFormat(inputPattern);
-        Calendar cal = Calendar.getInstance();
+    private String convertDateWithUpdate(String inputPattern, String localDateTime) {
+        Calendar cal = Calendar.getInstance(Locale.ENGLISH);
 
         try {
-            cal.setTime(df.parse(strDate));
+            cal.setTime((new SimpleDateFormat(inputPattern, Locale.ENGLISH).parse(localDateTime)));
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
-        cal.set(Calendar.YEAR, Calendar.getInstance().get(Calendar.YEAR));
-        cal.set(Calendar.MONTH, Calendar.getInstance().get(Calendar.MONTH));//, Calendar.getInstance().get(Calendar.DATE) + days, hours, minutes);
-
-        DateFormat output = new SimpleDateFormat(outputTimePattern);
-        return output.format(cal.getTime());
-
-    }
-
-    private String convertDateWithUpdateA(String inputPattern, String strDate, String localDateTime) {
-        DateFormat df = new SimpleDateFormat(inputPattern);
-        Calendar cal = Calendar.getInstance();
-
-        try {
-            cal.setTime((new SimpleDateFormat(outputTimePattern).parse(localDateTime)));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        String[] data = strDate.split(":");
-        int hours = Integer.parseInt(data[0]);
-        int minutes = Integer.parseInt(data[1]);
+        Locale locale = new Locale("ru", "RU");
+        Calendar cc = Calendar.getInstance(locale);
 
         Date date = cal.getTime();
-        date.setHours(hours);
-        date.setMinutes(minutes);
-        cal.setTime(date);
-        DateFormat output = new SimpleDateFormat(outputTimePattern);
-        String value = output.format(cal.getTime());
-        return value;
+        cc.setTime(date);
+        cc.set(Calendar.YEAR, 1900 + (new Date()).getYear());
 
+        DateFormat output = new SimpleDateFormat(outputTimePattern);
+        String value = output.format(cc.getTime());
+        return value;
     }
 
     private List<FlightDetail> parse(String strBody, int days) {
@@ -105,45 +81,45 @@ public class HaLoader extends BaseLoader {
         for (int i = 1; i < trs.size(); i++) {
             Elements tdList = trs.get(i).select("td");
 
-            String script = trs.get(i).html();
-
             FlightDetail detail = new FlightDetail();
             detail.setStatus(ArrivalStatus.SCHEDULED);
             detail.setEstimated("");
             detail.setFlightNumber(tdList.get(1).text());
+            String onclickScriptStr = tdList.get(1).html();
 
+            String ss = "&lt;/b&gt;&lt;/td&gt;&lt;td&gt;";
+            String[] temp0 = onclickScriptStr.split(ss);
 
-            //tdList.get(0).text()
+            String plan = temp0[2].substring(0,12);
+            String fact = temp0[3].substring(0,12);
 
-            if (tdList.get(3).text().length() > 0) {
-                detail.setScheduled(convertDateWithUpdate("HH:mm (dd-MMM)", tdList.get(3).text()));
+            if (plan.length() > 0) {
+                detail.setScheduled(convertDateWithUpdate("dd MMM HH:mm", plan));
             } else {
                 detail.setScheduled("");
             }
 
-            if (tdList.get(4).text().length() > 0) {
-                detail.setActual(convertDateWithUpdateA("HH:mm", tdList.get(5).text(), detail.getScheduled()));
+            if (fact.length() > 0 && onclickScriptStr.contains("Фактическое время прибытия")) {
+                detail.setActual(convertDateWithUpdate("dd MMM HH:mm", fact));
             } else {
                 detail.setActual("");
             }
 
-            String status = tdList.get(4).text();
-            if (status.equals("Прибыл")) {
+            String status = tdList.get(5).text();
+            if (status.equals("Прилетел")) {
                 detail.setStatus(ArrivalStatus.LANDED);
             } else if (status.equals("Отменен")) {
                 detail.setStatus(ArrivalStatus.CANCELLED);
-            } else if (status.equals("По расписанию")) {
+            } else if (status.equals("Прилетел с задержкой")) {
                 detail.setStatus(ArrivalStatus.SCHEDULED);
-            } else if (status.equals("Прибывает")) {
+            } else if (status.equals("Ожидается")) {
                 detail.setStatus(ArrivalStatus.SCHEDULED);
+            } else if (status.equals("Задерживается")) {
+                detail.setStatus(ArrivalStatus.DELAYED);
             }
 
             detailList.add(detail);
         }
-
-
-
-
 
         return detailList;
     }

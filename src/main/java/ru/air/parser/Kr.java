@@ -1,11 +1,15 @@
 package ru.air.parser;
 
 import com.google.gson.Gson;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.map.ObjectWriter;
 import ru.air.common.AirportEnum;
+import ru.air.entity.Flight;
 import ru.air.parser.ek.EkLoader;
 import ru.air.parser.ek.entity.FlightTr;
 import ru.air.parser.kr.KrLoader;
 
+import java.io.IOException;
 import java.util.Set;
 
 /**
@@ -19,10 +23,19 @@ public class Kr implements AirParser {
     }
 
     public String parse() {
-        Set<FlightTr> flight = loader.load();
-        Gson value = new Gson();
-        value.toJson(flight);
-        return value.toString();
-    }
+        Flight flight = loader.load();
 
+        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+        String json = "";
+
+        try {
+            json = ow.writeValueAsString(flight);
+            System.out.println(json);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return json;
+    }
 }
