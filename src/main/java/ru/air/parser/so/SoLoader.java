@@ -1,6 +1,5 @@
-package ru.air.parser.kr;
+package ru.air.parser.so;
 
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -14,16 +13,16 @@ import ru.air.entity.Flight;
 import ru.air.entity.FlightDetail;
 import ru.air.loader.PageLoader;
 import ru.air.parser.BaseLoader;
-import ru.air.parser.ek.entity.FlightTr;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
-public class KrLoader extends BaseLoader {
+public class SoLoader extends BaseLoader {
 
-    private String URL = "http://basel.aero/krasnodar/passengers/online-schedule/";
+    private String URL = "http://basel.aero/sochi/passengers/online-schedule/";
     private String outputTimePattern = "yyyy-MM-d HH:mm:ss";
 
-    public KrLoader(AirportEnum airportEnum) {
+    public SoLoader(AirportEnum airportEnum) {
         super(airportEnum);
     }
 
@@ -43,7 +42,7 @@ public class KrLoader extends BaseLoader {
     private List<FlightDetail> parse(String strBody) {
         List<FlightDetail> detailList = new ArrayList<>();
 
-        org.jsoup.nodes.Document doc = Jsoup.parse(strBody);
+        Document doc = Jsoup.parse(strBody);
         Elements trs = doc.select("div.tabs__content.tab-anim-flip");
         for (int i = 0; i < 3; i++) {
             //for each part
@@ -64,14 +63,14 @@ public class KrLoader extends BaseLoader {
 
                 String dt = getDateTime(i - 1, time);
 
-                if(status.equals("прибыл")){
+                if(status.equals("ПРИБЫЛ")){
                     detail.setStatus(ArrivalStatus.LANDED);
-                } else if(status.equals("по расписанию")){
+                } else if(status.equals("ПО РАСПИСАНИЮ")){
                     detail.setStatus(ArrivalStatus.SCHEDULED);
-                } else if(status.contains("вылет задержан до")){
-                    detail.setStatus(ArrivalStatus.DELAYED);
-                } else if(status.equals("отменен")){
+                } else if(status.equals("ОТМЕНЕН")){
                     detail.setStatus(ArrivalStatus.CANCELLED);
+                } else if(status.contains("вылет ЗАДЕРЖАН до")){
+                    detail.setStatus(ArrivalStatus.DELAYED);
                 }
 
                 detail.setActual(dt);
