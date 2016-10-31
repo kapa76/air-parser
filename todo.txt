@@ -11,18 +11,14 @@ http://zvartnots.am/new/get_data.php?minus_hour=-10&plus_hour=12&dir=arr&lg=ru&t
 2. KRR - Краснодар (Пашковский) http://basel.aero/krasnodar/passengers/online-schedule/
 3. AER - Сочи http://basel.aero/sochi/passengers/online-schedule/
 
+
 ------------------------------------
-
-
-
 
 7. VVO - Владивосток (Кневичи) http://vvo.aero
 8. KZN - Казань http://www.kazan.aero
 
 4. KUF - Самара (Курумоч) http://airport.samara.ru/ru/onlayn_tablo
 1. SVX - Екатеринбург (Кольцово) http://www.koltsovo.ru/ru/onlayn_tablo
-
-
 
 "airport_id": "HKG", - аэропорт вылета, правильно я понимаю.
 "arrivals": [
