@@ -4,18 +4,19 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.ObjectWriter;
 import ru.air.common.AirportEnum;
 import ru.air.entity.Flight;
-import ru.air.parser.vo.VoLoader;
+import ru.air.parser.ka.KaLoader;
+import ru.air.parser.kr.KrLoader;
 
 import java.io.IOException;
 
 /**
- * Created by Admin on 31.10.2016.
+ * Created by Admin on 06.11.2016.
  */
-public class Vo implements AirParser {
-    private VoLoader loader;
+public class Ka implements AirParser {
+    private KaLoader loader;
 
-    public Vo(){
-        loader = new VoLoader(AirportEnum.WLADIWOSTOK);
+    public Ka() {
+        loader = new KaLoader(AirportEnum.KAZAN);
     }
 
     public String parse() {

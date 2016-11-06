@@ -55,7 +55,8 @@ public class App {
                 airParser = new Vo();
                 break;
             case 8:
-
+                airParser = new Ka();
+                break;
             case 9:
                 airParser = new Ir();
                 break;

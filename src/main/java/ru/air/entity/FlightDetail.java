@@ -16,6 +16,10 @@ public class FlightDetail implements Serializable {
     private ArrivalStatus status;
 
     public FlightDetail() {
+        this.status = ArrivalStatus.SCHEDULED;
+        this.scheduled = "";
+        this.estimated = "";
+        this.actual = "";
     }
 
     public FlightDetail(String flightNumber, String scheduled, String estimated, String actual, ArrivalStatus status) {

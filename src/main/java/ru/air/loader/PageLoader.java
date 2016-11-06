@@ -1,16 +1,19 @@
 package ru.air.loader;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 /**
  * Created by Admin on 19.10.2016.
@@ -25,6 +28,32 @@ public class PageLoader {
         try {
             httpGet.setHeader("User-Agent", USER_AGENT);
             HttpResponse response = client.execute(httpGet);
+            int statusCode = response.getStatusLine().getStatusCode();
+
+            if(statusCode == 200) {
+                body = EntityUtils.toString(response.getEntity(), "UTF-8");
+            }
+        } catch(IOException exception){
+            System.out.println("PageLoader: can't load page: " + exception.getMessage() );
+        }
+
+        return body;
+    }
+
+    public static String LoaderPost(String url) {
+        HttpClient client = HttpClientBuilder.create().build();
+        HttpPost httpPost = new HttpPost(url);
+        String body = "";
+        try {
+            httpPost.addHeader("User-Agent", USER_AGENT);
+            httpPost.addHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+
+            ArrayList<NameValuePair> postParameters;
+            postParameters = new ArrayList<NameValuePair>();
+            postParameters.add(new BasicNameValuePair("active", "prilet"));
+            httpPost.setEntity(new UrlEncodedFormEntity(postParameters));
+
+            HttpResponse response = client.execute(httpPost);
             int statusCode = response.getStatusLine().getStatusCode();
 
             if(statusCode == 200) {

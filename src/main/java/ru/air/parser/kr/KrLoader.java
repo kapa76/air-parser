@@ -55,7 +55,6 @@ public class KrLoader extends BaseLoader {
             for (Element oneRow : rows) {
                 Elements tdsList = oneRow.select("div.table__cell");
                 FlightDetail detail = new FlightDetail();
-                detail.setStatus(ArrivalStatus.SCHEDULED);
 
                 detail.setFlightNumber(tdsList.get(2).text());
 
