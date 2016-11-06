@@ -13,8 +13,12 @@ import org.apache.http.util.EntityUtils;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Admin on 19.10.2016.
@@ -106,14 +110,14 @@ public class PageLoader {
             httpPost.addHeader("Host", "www.koltsovo.ru");
             httpPost.addHeader("Origin", "http://www.koltsovo.ru");
             httpPost.addHeader("Referer", "http://www.koltsovo.ru/ru/onlayn_tablo");
-            httpPost.addHeader("Cookie", "_ym_uid=1476857168363842848; __utmc=158817440; __utmz=158817440.1476857168.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); s=8cbdeb2d92407547d28df3c0889d62d2");
+            httpPost.addHeader("Cookie", setCockieFromResponse("http://www.koltsovo.ru/ru/onlayn_tablo"));
             httpPost.addHeader("DNT", "1");
 
             ArrayList<NameValuePair> postParameters;
             postParameters = new ArrayList<NameValuePair>();
             postParameters.add(new BasicNameValuePair("arrive", ""));
             postParameters.add(new BasicNameValuePair("rip", "91.246.100.79"));
-            postParameters.add(new BasicNameValuePair("uag", USER_AGENT ));
+            postParameters.add(new BasicNameValuePair("uag", USER_AGENT));
 
             httpPost.setEntity(new UrlEncodedFormEntity(postParameters));
             HttpResponse response = client.execute(httpPost);
@@ -126,6 +130,25 @@ public class PageLoader {
             System.out.println("PageLoader: can't load page: " + exception.getMessage());
         }
         return body;
+    }
+
+    private static String setCockieFromResponse(String url) {
+        String value = "";
+        try {
+            URL obj = new URL(url);
+            URLConnection conn = obj.openConnection();
+            Map<String, List<String>> map = conn.getHeaderFields();
+
+            List<String> contentLength = map.get("Set-Cookie");
+            for (String header : contentLength) {
+                value += value + ";" + header;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return value;
     }
 
 }

@@ -1,5 +1,10 @@
 package ru.air.parser.ir;
 
+import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
+import org.joda.time.MutableDateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -48,44 +53,20 @@ public class IrLoader extends BaseLoader {
         return value;
     }
 
-    private String convertDateWithUpdate(String inputPattern, String strDate) {
-        DateFormat df = new SimpleDateFormat(inputPattern);
-        Calendar cal = Calendar.getInstance();
+    private String convertDateWithUpdateA(String inputPattern, String strDate, int localDateTime) {
 
-        try {
-            cal.setTime(df.parse(strDate));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        cal.set(Calendar.YEAR, Calendar.getInstance().get(Calendar.YEAR));
-        cal.set(Calendar.MONTH, Calendar.getInstance().get(Calendar.MONTH));//, Calendar.getInstance().get(Calendar.DATE) + days, hours, minutes);
-
-        DateFormat output = new SimpleDateFormat(outputTimePattern);
-        return output.format(cal.getTime());
-
-    }
-
-    private String convertDateWithUpdateA(String inputPattern, String strDate, String localDateTime) {
-        DateFormat df = new SimpleDateFormat(inputPattern);
-        Calendar cal = Calendar.getInstance();
-
-        try {
-            cal.setTime((new SimpleDateFormat(outputTimePattern).parse(localDateTime)));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        MutableDateTime dt = new MutableDateTime();
+        dt.addDays(localDateTime);
 
         String[] data = strDate.split(":");
         int hours = Integer.parseInt(data[0]);
         int minutes = Integer.parseInt(data[1]);
 
-        Date date = cal.getTime();
-        date.setHours(hours);
-        date.setMinutes(minutes);
-        cal.setTime(date);
-        DateFormat output = new SimpleDateFormat(outputTimePattern);
-        String value = output.format(cal.getTime());
+        dt.setHourOfDay(hours);
+        dt.setMinuteOfHour(minutes);
+
+        DateTimeFormatter fmt = DateTimeFormat.forPattern(outputTimePattern);
+        String value = fmt.print(dt);
         return value;
 
     }
@@ -94,26 +75,23 @@ public class IrLoader extends BaseLoader {
         List<FlightDetail> detailList = new ArrayList<>();
 
         Document doc = Jsoup.parse(strBody);
-        Elements trs = doc.select("#tblh").select("table").get(0).select("tbody > tr");
+        Elements trs = doc.select("div.tab-content").first().select("table").get(0).select("tbody > tr");
         for (int i = 1; i < trs.size(); i++) {
             Elements tdList = trs.get(i).select("td");
-
             FlightDetail detail = new FlightDetail();
-            detail.setStatus(ArrivalStatus.SCHEDULED);
-            detail.setEstimated("");
             detail.setFlightNumber(tdList.get(0).text());
 
             if (tdList.get(3).text().length() > 0) {
-                detail.setScheduled(convertDateWithUpdate("HH:mm (dd-MMM)", tdList.get(3).text()));
+                detail.setScheduled(convertDateWithUpdateA("HH:mm", tdList.get(3).text(), days));
             } else {
                 detail.setScheduled("");
             }
 
-            if (tdList.get(4).text().length() > 0) {
-                detail.setActual(convertDateWithUpdateA("HH:mm", tdList.get(5).text(), detail.getScheduled()));
-            } else {
-                detail.setActual("");
-            }
+//            if (tdList.get(4).text().length() > 0) {
+//                detail.setActual(convertDateWithUpdateA("HH:mm", tdList.get(5).text(), detail.getScheduled()));
+//            } else {
+//                detail.setActual("");
+//            }
 
             String status = tdList.get(4).text();
             if (status.equals("Прибыл")) {
