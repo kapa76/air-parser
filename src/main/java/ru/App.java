@@ -45,6 +45,8 @@ public class App {
                 airParser = new So();
                 break;
             case 4:
+                airParser = new Sa();
+                break;
             case 5:
                 airParser = new Ha();
                 break;

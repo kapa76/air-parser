@@ -1,5 +1,8 @@
-package ru.air.parser.ek;
+package ru.air.parser.sa;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 import ru.air.common.AirportEnum;
 import ru.air.common.ArrivalStatus;
 import ru.air.entity.Flight;
@@ -22,13 +25,13 @@ import java.util.List;
 /**
  * Created by Admin on 06.11.2016.
  */
-public class EkLoader extends BaseLoader {
+public class SaLoader extends BaseLoader {
 
-    private String url = "http://www.koltsovo.ru/1linetablo.ajax.5.19.php?arrive";
-    private String url24 = "http://www.koltsovo.ru/1linetablo.ajax.5.19.php?arrive24h";
+    private String url = "http://airport.samara.ru/1linetablo.ajax.5.19.php?arrive";
+    private String url24 = "http://airport.samara.ru/1linetablo.ajax.5.19.php?arrive24h";
     private String outputTimePattern = "yyyy-MM-d HH:mm:ss";
 
-    public EkLoader(AirportEnum airport) {
+    public SaLoader(AirportEnum airport) {
         super(airport);
     }
 
@@ -42,8 +45,8 @@ public class EkLoader extends BaseLoader {
     private List<FlightDetail> loadDataFromSite() {
         List<FlightDetail> value = new ArrayList<>();
 
-        value.addAll(parse(PageLoader.LoaderPostKoltsovo(url24)));
-        value.addAll(parse(PageLoader.LoaderPostKoltsovo(url)));
+        value.addAll(parse(PageLoader.LoaderPostSamara(url24)));
+        value.addAll(parse(PageLoader.LoaderPostSamara(url)));
 
         return value;
     }

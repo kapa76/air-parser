@@ -1,16 +1,12 @@
 package ru.air.parser;
 
-import com.google.gson.Gson;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.ObjectWriter;
 import ru.air.common.AirportEnum;
 import ru.air.entity.Flight;
-import ru.air.parser.ek.entity.FlightTr;
 import ru.air.parser.ha.HaLoader;
-import ru.air.parser.kr.KrLoader;
 
 import java.io.IOException;
-import java.util.Set;
 
 /**
  * Created by kapa on 28.10.16.

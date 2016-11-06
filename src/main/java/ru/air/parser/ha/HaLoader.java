@@ -2,8 +2,6 @@ package ru.air.parser.ha;
 
 import org.jsoup.Jsoup;
 import org.jsoup.select.Elements;
-import org.w3c.dom.Document;
-import org.xml.sax.InputSource;
 import ru.air.common.AirportEnum;
 import ru.air.common.ArrivalStatus;
 import ru.air.entity.Flight;
@@ -11,9 +9,6 @@ import ru.air.entity.FlightDetail;
 import ru.air.loader.PageLoader;
 import ru.air.parser.BaseLoader;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.StringReader;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

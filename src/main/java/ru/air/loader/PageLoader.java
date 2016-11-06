@@ -14,6 +14,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Enumeration;
 
 /**
  * Created by Admin on 19.10.2016.
@@ -30,11 +31,11 @@ public class PageLoader {
             HttpResponse response = client.execute(httpGet);
             int statusCode = response.getStatusLine().getStatusCode();
 
-            if(statusCode == 200) {
+            if (statusCode == 200) {
                 body = EntityUtils.toString(response.getEntity(), "UTF-8");
             }
-        } catch(IOException exception){
-            System.out.println("PageLoader: can't load page: " + exception.getMessage() );
+        } catch (IOException exception) {
+            System.out.println("PageLoader: can't load page: " + exception.getMessage());
         }
 
         return body;
@@ -56,13 +57,75 @@ public class PageLoader {
             HttpResponse response = client.execute(httpPost);
             int statusCode = response.getStatusLine().getStatusCode();
 
-            if(statusCode == 200) {
+            if (statusCode == 200) {
                 body = EntityUtils.toString(response.getEntity(), "UTF-8");
             }
-        } catch(IOException exception){
-            System.out.println("PageLoader: can't load page: " + exception.getMessage() );
+        } catch (IOException exception) {
+            System.out.println("PageLoader: can't load page: " + exception.getMessage());
         }
-
         return body;
     }
+
+    public static String LoaderPostSamara(String url) {
+        HttpClient client = HttpClientBuilder.create().build();
+        HttpPost httpPost = new HttpPost(url);
+        String body = "";
+        try {
+            httpPost.addHeader("User-Agent", USER_AGENT);
+            httpPost.addHeader("Content-Type", "application/x-www-form-urlencoded; ");
+            httpPost.addHeader("Accept", "application/json;");
+
+            ArrayList<NameValuePair> postParameters;
+            postParameters = new ArrayList<NameValuePair>();
+            postParameters.add(new BasicNameValuePair("arrive", ""));
+            postParameters.add(new BasicNameValuePair("rip", "127.0.0.1"));
+            postParameters.add(new BasicNameValuePair("uag", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.71 Safari/537.36"));
+
+            httpPost.setEntity(new UrlEncodedFormEntity(postParameters));
+
+            HttpResponse response = client.execute(httpPost);
+            int statusCode = response.getStatusLine().getStatusCode();
+
+            if (statusCode == 200) {
+                body = EntityUtils.toString(response.getEntity(), "UTF-8");
+            }
+        } catch (IOException exception) {
+            System.out.println("PageLoader: can't load page: " + exception.getMessage());
+        }
+        return body;
+    }
+
+    public static String LoaderPostKoltsovo(String url) {
+        HttpClient client = HttpClientBuilder.create().build();
+        HttpPost httpPost = new HttpPost(url);
+        String body = "";
+        try {
+            httpPost.addHeader("User-Agent", USER_AGENT);
+            httpPost.addHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+            httpPost.addHeader("Accept", "application/json");
+            httpPost.addHeader("Host", "www.koltsovo.ru");
+            httpPost.addHeader("Origin", "http://www.koltsovo.ru");
+            httpPost.addHeader("Referer", "http://www.koltsovo.ru/ru/onlayn_tablo");
+            httpPost.addHeader("Cookie", "_ym_uid=1476857168363842848; __utmc=158817440; __utmz=158817440.1476857168.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); s=8cbdeb2d92407547d28df3c0889d62d2");
+            httpPost.addHeader("DNT", "1");
+
+            ArrayList<NameValuePair> postParameters;
+            postParameters = new ArrayList<NameValuePair>();
+            postParameters.add(new BasicNameValuePair("arrive", ""));
+            postParameters.add(new BasicNameValuePair("rip", "91.246.100.79"));
+            postParameters.add(new BasicNameValuePair("uag", USER_AGENT ));
+
+            httpPost.setEntity(new UrlEncodedFormEntity(postParameters));
+            HttpResponse response = client.execute(httpPost);
+            int statusCode = response.getStatusLine().getStatusCode();
+
+            if (statusCode == 200) {
+                body = EntityUtils.toString(response.getEntity());
+            }
+        } catch (IOException exception) {
+            System.out.println("PageLoader: can't load page: " + exception.getMessage());
+        }
+        return body;
+    }
+
 }

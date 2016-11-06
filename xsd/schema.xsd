@@ -1,0 +1,91 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="online_arrive">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="flight" maxOccurs="unbounded" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="route">
+                <xs:complexType>
+                  <xs:simpleContent>
+                    <xs:extension base="xs:string">
+                      <xs:attribute type="xs:string" name="name" use="optional"/>
+                      <xs:attribute type="xs:string" name="name_eng" use="optional"/>
+                      <xs:attribute type="xs:string" name="status" use="optional"/>
+                      <xs:attribute type="xs:string" name="status_eng" use="optional"/>
+                    </xs:extension>
+                  </xs:simpleContent>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="process">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="baggage">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="xs:string">
+                            <xs:attribute type="xs:string" name="status" use="optional"/>
+                            <xs:attribute type="xs:string" name="status_eng" use="optional"/>
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="check-in" minOccurs="0">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="xs:string">
+                            <xs:attribute type="xs:string" name="status" use="optional"/>
+                            <xs:attribute type="xs:string" name="status_eng" use="optional"/>
+                            <xs:attribute type="xs:string" name="dt_b" use="optional"/>
+                            <xs:attribute type="xs:string" name="dt_e" use="optional"/>
+                            <xs:attribute type="xs:string" name="checkins" use="optional"/>
+                            <xs:attribute type="xs:string" name="checkins_eng" use="optional"/>
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="boarding" minOccurs="0">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="xs:string">
+                            <xs:attribute type="xs:string" name="status" use="optional"/>
+                            <xs:attribute type="xs:string" name="status_eng" use="optional"/>
+                            <xs:attribute type="xs:string" name="dt_e" use="optional"/>
+                            <xs:attribute type="xs:string" name="gate" use="optional"/>
+                            <xs:attribute type="xs:string" name="gate_eng" use="optional"/>
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute type="xs:int" name="id" use="optional"/>
+            <xs:attribute type="xs:short" name="rf_code" use="optional"/>
+            <xs:attribute type="xs:string" name="rf" use="optional"/>
+            <xs:attribute type="xs:string" name="rf_eng" use="optional"/>
+            <xs:attribute type="xs:short" name="flt" use="optional"/>
+            <xs:attribute type="xs:string" name="daname" use="optional"/>
+            <xs:attribute type="xs:string" name="daname_eng" use="optional"/>
+            <xs:attribute type="xs:string" name="tws_arrive" use="optional"/>
+            <xs:attribute type="xs:string" name="tws_arrive_eng" use="optional"/>
+            <xs:attribute type="xs:string" name="tws_depart" use="optional"/>
+            <xs:attribute type="xs:string" name="tws_depart_eng" use="optional"/>
+            <xs:attribute type="xs:string" name="dp" use="optional"/>
+            <xs:attribute type="xs:string" name="dp_eng" use="optional"/>
+            <xs:attribute type="xs:string" name="dr" use="optional"/>
+            <xs:attribute type="xs:string" name="dr_eng" use="optional"/>
+            <xs:attribute type="xs:string" name="statuzz" use="optional"/>
+            <xs:attribute type="xs:string" name="statuzz_eng" use="optional"/>
+            <xs:attribute type="xs:byte" name="idirr" use="optional"/>
+            <xs:attribute type="xs:string" name="m2" use="optional"/>
+            <xs:attribute type="xs:string" name="m2_eng" use="optional"/>
+            <xs:attribute type="xs:string" name="sovm" use="optional"/>
+            <xs:attribute type="xs:string" name="sovm_eng" use="optional"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

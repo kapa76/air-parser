@@ -4,19 +4,19 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.ObjectWriter;
 import ru.air.common.AirportEnum;
 import ru.air.entity.Flight;
-import ru.air.parser.ek.EkLoader;
+import ru.air.parser.sa.SaLoader;
+import ru.air.parser.so.SoLoader;
 
 import java.io.IOException;
 
 /**
- * Created by Admin on 23.10.2016.
+ * Created by Admin on 06.11.2016.
  */
-public class Ek implements AirParser {
+public class Sa implements AirParser {
+    private SaLoader loader;
 
-    private EkLoader loader;
-
-    public Ek(){
-        loader = new EkLoader(AirportEnum.EKATERINBURG);
+    public Sa(){
+        loader = new SaLoader(AirportEnum.SAMARA);
     }
 
     public String parse() {
