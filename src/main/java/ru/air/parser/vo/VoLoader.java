@@ -75,7 +75,8 @@ public class VoLoader extends BaseLoader {
         String ss = new String(scripts.getBytes(Charset.forName("UTF-8")));
         ss = StringEscapeUtils.unescapeJava(ss);
 
-        ss = ss.replace("ООО \"Вельталь-авиа\"", "ООО Вельталь-авиа");
+//        ss = ss.replace("ООО \"Вельталь-авиа\"", "ООО Вельталь-авиа");
+        ss = ss.replace("\"", "");
 
         Map<String, Map> myMap = new HashMap<String, Map>();
         ObjectMapper objectMapper = new ObjectMapper();
