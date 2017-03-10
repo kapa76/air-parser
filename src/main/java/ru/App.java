@@ -24,6 +24,23 @@ public class App {
         airParser.parse();
     }
 
+
+    private static void usage() {
+        System.out.println("Usage: Необходимо указать номер аэропорта");
+        System.out.println("    Для выбора аэропорта укажите один из номеров");
+        System.out.println("    1  SVX - Екатеринбург (Кольцово)");
+        System.out.println("    2  KRR - Краснодар (Пашковский)");
+        System.out.println("    3  AER - Сочи ");
+        System.out.println("    4  KUF - Самара (Курумоч) ");
+        System.out.println("    5  KHV - Хабаровск (Новый) ");
+        System.out.println("    6  EVN - Ереван (Звартноц) ");
+        System.out.println("    7  VVO - Владивосток (Кневичи) ");
+        System.out.println("    8  KZN - Казань ");
+        System.out.println("    9  IKT - Иркутск ");
+        System.out.println("    10 DYU - Душанбе");
+        System.exit(0);
+    }
+
     public static void main(String[] args) throws IOException {
         int airNumber = 0;
 
@@ -66,7 +83,7 @@ public class App {
                 airParser = new Du();
                 break;
             default:
-                break;
+                usage();
         }
 
         App app = new App(airParser);
