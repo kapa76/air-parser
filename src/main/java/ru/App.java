@@ -27,7 +27,7 @@ public class App {
 
     private static void usage() {
         System.out.println("Usage: Необходимо указать номер аэропорта");
-        System.out.println("    Для выбора аэропорта укажите один из номеров");
+        System.out.println("    Для выбора аэропорта укажите один из номеров:");
         System.out.println("    1  SVX - Екатеринбург (Кольцово)");
         System.out.println("    2  KRR - Краснодар (Пашковский)");
         System.out.println("    3  AER - Сочи ");
@@ -45,7 +45,7 @@ public class App {
         int airNumber = 0;
 
         if (args.length <= 0) {
-            exit(0);
+            usage();
         } else {
             airNumber = Integer.parseInt(args[0]);
         }

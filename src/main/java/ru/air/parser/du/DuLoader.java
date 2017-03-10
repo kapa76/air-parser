@@ -14,6 +14,8 @@ import ru.air.parser.BaseLoader;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 /**
@@ -58,8 +60,13 @@ public class DuLoader extends BaseLoader {
         int minutes = Integer.parseInt(data[1]);
         cal.set(Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.MONTH), Calendar.getInstance().get(Calendar.DATE) + days, hours, minutes);
 
-        DateFormat output = new SimpleDateFormat(outputTimePattern);
-        return output.format(cal.getTime());
+        LocalDateTime tt = LocalDateTime.of(Calendar.YEAR, Calendar.MONTH, Calendar.DATE + days, hours, minutes, 0, 0);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(outputTimePattern);
+
+        return tt.format(formatter);
+
+//        DateFormat output = new SimpleDateFormat(outputTimePattern);
+//        return output.format(cal.getTime());
 
     }
 
