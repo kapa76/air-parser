@@ -15,6 +15,7 @@ public class FlightAD implements Serializable {
 
     public FlightAD(){
         arrivals = new LinkedList<FlightDetail>();
+        departure = new LinkedList<FlightDetail>();
     }
 
     public String getAirportId() {

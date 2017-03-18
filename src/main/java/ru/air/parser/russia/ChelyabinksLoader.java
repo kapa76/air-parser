@@ -1,8 +1,5 @@
 package ru.air.parser.russia;
 
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -13,15 +10,16 @@ import ru.air.entity.FlightDetail;
 import ru.air.loader.PageLoader;
 import ru.air.parser.BaseLoader;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 /**
  * Created by Admin on 18.03.2017.
  */
 public class ChelyabinksLoader extends BaseLoader {
 
-    private String URL = "http://basel.aero/anapa/passengers/online-schedule/";
+    private String URL = "http://cekport.ru/passengers/information/timetable/";
     private String outputTimePattern = "yyyy-MM-d HH:mm";
 
     public ChelyabinksLoader(AirportEnum chelyabinks) {
@@ -31,74 +29,125 @@ public class ChelyabinksLoader extends BaseLoader {
     public FlightAD load() {
         FlightAD flight = new FlightAD();
         flight.setAirportId(getAirport().getAirportId());
-        flight.setArrivals(loadArrival());
-        flight.setDeparture(loadDeparture());
+
+        List<String> paramsLoader = new ArrayList<>();
+        paramsLoader.add("yesterday");
+        paramsLoader.add("today");
+        paramsLoader.add("tomorrow");
+        flight = load(flight, paramsLoader);
+
         return flight;
     }
 
-    private List<FlightDetail> loadArrival() {
-        List<FlightDetail> value = new ArrayList<>();
-        value.addAll(parse(PageLoader.Loader(URL)));
-        return value;
+    private FlightAD load(FlightAD flight, List<String> paramsLoader) {
+        for (String key : paramsLoader) {
+            String htmlPage = PageLoader.LoaderChelyabinksPost("http://cekport.ru/ajax/ttable.php", "day", key);
+
+            flight.getDeparture().addAll(parseDeparture(htmlPage, key));
+            flight.getArrivals().addAll(parseArrival(htmlPage, key));
+
+        }
+
+        return flight;
     }
 
-    private List<FlightDetail> loadDeparture() {
-        List<FlightDetail> value = new ArrayList<>();
-        //value.addAll(parseDeparture(PageLoader.Loader(URL)));
-        return value;
-    }
-
-    private List<FlightDetail> parse(String strBody) {
+    private Collection<? extends FlightDetail> parseDeparture(String strBody, String keyValue) {
         List<FlightDetail> detailList = new ArrayList<>();
-
         org.jsoup.nodes.Document doc = Jsoup.parse(strBody);
-        Elements trs = doc.select("div.tabs__content.tab-anim-flip");
-        for (int i = 0; i < 3; i++) {
-            //for each part
-            Elements els = trs.get(i).select("div.tabs__data.arrive").first().select("div.table__body");
-            Elements rows = els.first().select("div.js-table__row");
 
-            //3 части, 1 часть вчера, сегодня и 3 - часть завтра.
-            for (Element oneRow : rows) {
-                Elements tdsList = oneRow.select("div.table__cell");
-                FlightDetail detail = new FlightDetail();
-                detail.setFlightNumber(tdsList.get(2).text());
-                String status = tdsList.get(6).text();
-                String time = tdsList.get(1).text();
-                String dt = getDateTime(i - 1, time);
-                if (status.equals("прибыл")) {
-                    detail.setStatus(ArrivalStatus.LANDED);
-                } else if (status.equals("по расписанию")) {
-                    detail.setStatus(ArrivalStatus.SCHEDULED);
-                } else if (status.contains("вылет задержан до")) {
-                    detail.setStatus(ArrivalStatus.DELAYED);
-                } else if (status.equals("отменен")) {
-                    detail.setStatus(ArrivalStatus.CANCELLED);
-                }
+        Elements rows = doc.select("div.col.fl").get(0).select("div.inner").select("div.fi-header.cf");
+        for (int i = 0; i < rows.size(); i++) {
+            Element row = rows.get(i);
+            FlightDetail detail = new FlightDetail();
 
-                detail.setActual(dt);
-                detail.setScheduled("");
-                detail.setEstimated("");
-                detailList.add(detail);
+            detail.setFlightNumber(row.select("span.tth-flight").text());
+            String status = row.select("span.tth-status.ih-status-boarded").text();
+
+            String schedulerTime = row.select("span.tth-time").text();
+            String actualTime = row.select("span.tth-time-count").text();
+
+            if (status.equals("Рейс прибыл")) {
+                detail.setStatus(ArrivalStatus.LANDED);
+            } else if (status.equals("По расписанию")) {
+                detail.setStatus(ArrivalStatus.SCHEDULED);
+            } else if (status.contains("вылет задержан до")) {
+                detail.setStatus(ArrivalStatus.DELAYED);
+            } else if (status.equals("отменен")) {
+                detail.setStatus(ArrivalStatus.CANCELLED);
             }
+
+            if (!schedulerTime.equals(actualTime)) {
+                detail.setActual(getDateTime(keyValue, actualTime));
+            }
+
+            detail.setScheduled(getDateTime(keyValue, schedulerTime));
+            detail.setEstimated("");
+            detailList.add(detail);
+
         }
 
         return detailList;
     }
 
-    private String getDateTime(int i, String time) {
+    private Collection<? extends FlightDetail> parseArrival(String strBody, String keyValue) {
+        List<FlightDetail> detailList = new ArrayList<>();
+        org.jsoup.nodes.Document doc = Jsoup.parse(strBody);
 
-        String[] tt = time.split(":");
-        DateTime dt = new DateTime()
-                .withHourOfDay(Integer.parseInt(tt[0]))
-                .withMinuteOfHour(Integer.parseInt(tt[1]));
+        Elements rows = doc.select("div.col.fl").get(1).select("div.inner").select("div.fi-header.cf");
+        for (int i = 0; i < rows.size(); i++) {
+            Element row = rows.get(i);
+            FlightDetail detail = new FlightDetail();
 
-        //1900 + dtemp.getYear(), dtemp.getMonth(), dtemp.getDate(), Integer.parseInt(tt[0]), Integer.parseInt(tt[1]));
-        dt = dt.plusDays(i);
+            detail.setFlightNumber(row.select("span.tth-flight").text());
+            String status = row.select("span.tth-status.ih-status-boarded").text();
 
-        DateTimeFormatter fmt = DateTimeFormat.forPattern(outputTimePattern);
+            String schedulerTime = row.select("span.tth-time").text();
+            String actualTime = row.select("span.tth-time-count").text();
 
-        return fmt.print(dt) + ":00";
+            if (status.equals("Рейс прибыл")) {
+                detail.setStatus(ArrivalStatus.LANDED);
+            } else if (status.equals("По расписанию")) {
+                detail.setStatus(ArrivalStatus.SCHEDULED);
+            } else if (status.contains("вылет задержан до")) {
+                detail.setStatus(ArrivalStatus.DELAYED);
+            } else if (status.equals("отменен")) {
+                detail.setStatus(ArrivalStatus.CANCELLED);
+            }
+
+            if (!schedulerTime.equals(actualTime)) {
+                detail.setActual(getDateTime(keyValue, actualTime));
+            }
+
+            detail.setScheduled(getDateTime(keyValue, schedulerTime));
+            detail.setEstimated("");
+            detailList.add(detail);
+
+        }
+
+        return detailList;
+    }
+
+
+    private String getDateTime(String status, String time) {
+        String[] times = time.split(":");
+        LocalDateTime ldt = LocalDateTime.now();
+
+        ldt = ldt.withHour(Integer.parseInt(times[0]));
+        ldt = ldt.withMinute(Integer.parseInt(times[1]));
+
+        switch (status) {
+            case "yesterday": {
+                ldt = ldt.minusDays(1);
+                break;
+            }
+            case "tomorrow": {
+                ldt = ldt.plusDays(1);
+                break;
+            }
+        }
+
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern(outputTimePattern);
+        return ldt.format(fmt) + ":00";
     }
 
 }

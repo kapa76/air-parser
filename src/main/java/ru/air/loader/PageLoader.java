@@ -10,13 +10,10 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
 
@@ -151,4 +148,38 @@ public class PageLoader {
         return value;
     }
 
+    public static String LoaderChelyabinksPost(String httpUrl, String paramName, String paramValue) {
+        HttpClient client = HttpClientBuilder.create().build();
+        HttpPost httpPost = new HttpPost(httpUrl);
+        String body = "";
+        try {
+            httpPost.addHeader("User-Agent", USER_AGENT);
+            httpPost.addHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+            httpPost.addHeader("Accept", "application/json");
+//            httpPost.addHeader("Host", "www.koltsovo.ru");
+//            httpPost.addHeader("Origin", "http://www.koltsovo.ru");
+//            httpPost.addHeader("Referer", "http://www.koltsovo.ru/ru/onlayn_tablo");
+//            httpPost.addHeader("Cookie", setCockieFromResponse("http://www.koltsovo.ru/ru/onlayn_tablo"));
+//            httpPost.addHeader("DNT", "1");
+
+            ArrayList<NameValuePair> postParameters;
+            postParameters = new ArrayList<NameValuePair>();
+            postParameters.add(new BasicNameValuePair(paramName, paramValue));
+
+//            postParameters.add(new BasicNameValuePair("arrive", ""));
+//            postParameters.add(new BasicNameValuePair("rip", "91.246.100.79"));
+//            postParameters.add(new BasicNameValuePair("uag", USER_AGENT));
+
+            httpPost.setEntity(new UrlEncodedFormEntity(postParameters));
+            HttpResponse response = client.execute(httpPost);
+            int statusCode = response.getStatusLine().getStatusCode();
+
+            if (statusCode == 200) {
+                body = EntityUtils.toString(response.getEntity());
+            }
+        } catch (IOException exception) {
+            System.out.println("PageLoader: can't load page: " + exception.getMessage());
+        }
+        return body;
+    }
 }
