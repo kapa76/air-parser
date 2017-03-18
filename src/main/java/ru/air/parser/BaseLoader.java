@@ -24,7 +24,6 @@ public class BaseLoader {
         return webClient;
     }
 
-
     public AirportEnum getAirport(){
         return airport;
     }
@@ -41,7 +40,6 @@ public class BaseLoader {
         webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
     }
 
-
     public HtmlPage getHtmlPage() {
         HtmlPage page = null;
         try {
@@ -56,7 +54,6 @@ public class BaseLoader {
 
         return page;
     }
-
 
     public HtmlPage getHtmlPage(long delay) {
         HtmlPage page = null;

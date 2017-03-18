@@ -6,8 +6,6 @@ import ru.air.parser.*;
 import java.io.*;
 import java.util.logging.Level;
 
-import static java.lang.System.exit;
-
 public class App {
 
     private AirParser airParser;
@@ -38,6 +36,18 @@ public class App {
         System.out.println("    8  KZN - Казань ");
         System.out.println("    9  IKT - Иркутск ");
         System.out.println("    10 DYU - Душанбе");
+
+        System.out.println("    11 AAQ - Анапа");
+        System.out.println("    12 CEK - Челябинск");
+        System.out.println("    13 ARH - Архангельск");
+        System.out.println("    14 AMS - Амстердам North Holland");
+        System.out.println("    15 ATL - Hartsfield Jackson Atlanta International, Georgia");
+        System.out.println("    16 BCN - Barcelona International");
+        System.out.println("    17 BKK - Suvarnabhumi Bangkok");
+        System.out.println("    18 BOM - Chhatrapati Shivaji International Mumbai");
+        System.out.println("    19 CAN - Guangzhou Baiyun International Guangzhou");
+        System.out.println("    20 CDG - Charles de Gaulle International Paris");
+
         System.exit(0);
     }
 
@@ -81,6 +91,36 @@ public class App {
                 break;
             case 10:
                 airParser = new Du();
+                break;
+            case 11:
+                airParser = new Anapa();
+                break;
+            case 12:
+                airParser = new Chelyabinks();
+                break;
+            case 13:
+                airParser = new Arhangelsk();
+                break;
+            case 14:
+                airParser = new Amsterdam();
+                break;
+            case 15:
+                airParser = new Atlanta();
+                break;
+            case 16:
+                airParser = new Barselona();
+                break;
+            case 17:
+                airParser = new Bangkok();
+                break;
+            case 18:
+                airParser = new Chhatrapati();
+                break;
+            case 19:
+                airParser = new Guangzhou();
+                break;
+            case 20:
+                airParser = new CharlesDeGaulle();
                 break;
             default:
                 usage();

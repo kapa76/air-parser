@@ -1,18 +1,27 @@
 
 
-
-1. SVX - Екатеринбург (Кольцово) http://www.koltsovo.ru/ru/onlayn_tablo
-2. KRR - Краснодар (Пашковский) http://basel.aero/krasnodar/passengers/online-schedule/
-3. AER - Сочи http://basel.aero/sochi/passengers/online-schedule/
-4. KUF - Самара (Курумоч) http://airport.samara.ru/ru/onlayn_tablo
-5. KHV - Хабаровск (Новый) http://airkhv.ru/index.php?option=com_tablo&lang=ru
-6. EVN - Ереван (Звартноц) http://zvartnots.am/new/
-7. VVO - Владивосток (Кневичи) http://vvo.aero
-8. KZN - Казань http://www.kazan.aero
-9. IKT - Иркутск http://iktport.ru/component/option,com_tarchive/Itemid,122/task,prilet/arc,1/   httpget !!
+1.  SVX - Екатеринбург (Кольцово) http://www.koltsovo.ru/ru/onlayn_tablo
+2.  KRR - Краснодар (Пашковский) http://basel.aero/krasnodar/passengers/online-schedule/
+3.  AER - Сочи http://basel.aero/sochi/passengers/online-schedule/
+4.  KUF - Самара (Курумоч) http://airport.samara.ru/ru/onlayn_tablo
+5.  KHV - Хабаровск (Новый) http://airkhv.ru/index.php?option=com_tablo&lang=ru
+6.  EVN - Ереван (Звартноц) http://zvartnots.am/new/
+7.  VVO - Владивосток (Кневичи) http://vvo.aero
+8.  KZN - Казань http://www.kazan.aero
+9.  IKT - Иркутск http://iktport.ru/component/option,com_tarchive/Itemid,122/task,prilet/arc,1/   httpget !!
 10. DYU - Душанбе http://airport.tj/index.php/ru/tablo
 
+11. AAQ - Анапа
 ------------------------------------
+12. CEK - Челябинск
+13. ARH - Архангельск
+14. AMS - Амстердам North Holland
+15. ATL - Hartsfield Jackson Atlanta International, Georgia
+16. BCN - Barcelona International
+17. BKK - Suvarnabhumi Bangkok
+18. BOM - Chhatrapati Shivaji International Mumbai
+19. CAN - Guangzhou Baiyun International Guangzhou
+20. CDG - Charles de Gaulle International Paris
 
 "airport_id": "HKG", - аэропорт вылета, правильно я понимаю.
 "arrivals": [
