@@ -12,9 +12,9 @@
 10. DYU - Душанбе http://airport.tj/index.php/ru/tablo
 
 11. AAQ - Анапа
-------------------------------------
 12. CEK - Челябинск
 13. ARH - Архангельск
+------------------------------------
 14. AMS - Амстердам North Holland
 15. ATL - Hartsfield Jackson Atlanta International, Georgia
 16. BCN - Barcelona International

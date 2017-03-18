@@ -6,7 +6,9 @@ public enum ArrivalStatus {
     EXPECTED(3, "ожидается скорая посадка"),
     DELAYED(4, "рейс задерживается"),
     LANDED(5, "приземлился"),
-    CANCELLED(6, "рейс отменен");
+    TRANSFERED(6, "рейс перенесен"),
+    CANCELLED(7, "рейс отменен"),
+    FLIGHTSENT(8, "рейс отправлен");
 
     private int code;
     private String msg;
