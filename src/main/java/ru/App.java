@@ -1,6 +1,14 @@
 package ru;
 
 import ru.air.parser.*;
+import ru.air.parser.asia.Bangkok;
+import ru.air.parser.asia.Chhatrapati;
+import ru.air.parser.asia.Guangzhou;
+import ru.air.parser.europe.Amsterdam;
+import ru.air.parser.europe.Barselona;
+import ru.air.parser.europe.CharlesDeGaulle;
+import ru.air.parser.russia.*;
+import ru.air.parser.usa.Atlanta;
 
 
 import java.io.*;
