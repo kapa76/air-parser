@@ -47,7 +47,6 @@ public class ArhangelskLoader extends BaseLoader {
         return detailList;
     }
 
-
     private Collection<? extends FlightDetail> parseTableRows(int indexDay, Element table, boolean b) {
         List<FlightDetail> detailList = new ArrayList<>();
         Elements rows = table.select("tr");
