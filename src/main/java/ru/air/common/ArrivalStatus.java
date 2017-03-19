@@ -8,7 +8,8 @@ public enum ArrivalStatus {
     LANDED(5, "приземлился"),
     TRANSFERED(6, "рейс перенесен"),
     CANCELLED(7, "рейс отменен"),
-    FLIGHTSENT(8, "рейс отправлен");
+    FLIGHTSENT(8, "рейс отправлен"),
+    DEPARTED(9, "рейс вылетел");
 
     private int code;
     private String msg;
