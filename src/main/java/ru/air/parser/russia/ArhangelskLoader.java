@@ -19,7 +19,7 @@ import java.util.List;
 public class ArhangelskLoader extends BaseLoader {
 
     private String urlDeparture = "http://arhaero.ru/pax/flying/online-tablo-departure";
-    private String urlArrive = "http://arhaero.ru/pax/flying/online-tablo-departure";
+    private String urlArrive = "http://arhaero.ru/pax/flying/online-tablo-arrivals";
 
     private String outputTimePattern = "yyyy-MM-d HH:mm";
 
@@ -71,7 +71,7 @@ public class ArhangelskLoader extends BaseLoader {
                 if (status.contains("Перенос на")) {
                     detail.setStatus(ArrivalStatus.TRANSFERED);
                 } else if (status.contains("Отправлен")) {
-                    detail.setStatus(ArrivalStatus.FLIGHTSENT);
+                    detail.setStatus(ArrivalStatus.DEPARTED);
                 } else if (status.equals("Рейс прибыл")) {
                     detail.setStatus(ArrivalStatus.LANDED);
                 } else if (status.equals("По расписанию")) {
@@ -84,8 +84,6 @@ public class ArhangelskLoader extends BaseLoader {
                     detail.setStatus(ArrivalStatus.LANDED);
                 } else if (status.contains("Вылетел в")) {
                     detail.setStatus(ArrivalStatus.EXPECTED);
-                } else {
-                    detail.setStatus(ArrivalStatus.SCHEDULED);
                 }
 
                 if (!schedulerTime.equals(actualTime) && actualTime.length() >= 5) {

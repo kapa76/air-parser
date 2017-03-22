@@ -98,7 +98,7 @@ public class AmsterdamLoader extends BaseLoader {
             } else if (status.contains("Gate changed")) {
                 fd.setStatus(ArrivalStatus.TRANSFERED);
             } else if (status.contains("Departed")) {
-                fd.setStatus(ArrivalStatus.FLIGHTSENT);
+                fd.setStatus(ArrivalStatus.DEPARTED);
             } else if (status.equals("On schedule")) {
                 fd.setStatus(ArrivalStatus.SCHEDULED);
             } else if (status.contains("Delayed")) {

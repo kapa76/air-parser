@@ -66,14 +66,14 @@ public class ChelyabinksLoader extends BaseLoader {
             String schedulerTime = row.select("span.tth-time").text();
             String actualTime = row.select("span.tth-time-count").text();
 
-            if (status.equals("Рейс прибыл")) {
-                detail.setStatus(ArrivalStatus.LANDED);
-            } else if (status.equals("По расписанию")) {
+            if (status.equals("По расписанию")) {
                 detail.setStatus(ArrivalStatus.SCHEDULED);
             } else if (status.contains("вылет задержан до")) {
                 detail.setStatus(ArrivalStatus.DELAYED);
             } else if (status.equals("отменен")) {
                 detail.setStatus(ArrivalStatus.CANCELLED);
+            } else if (status.equals("Вылетел")) {
+                detail.setStatus(ArrivalStatus.DEPARTED);
             }
 
             if (!schedulerTime.equals(actualTime)) {
