@@ -102,6 +102,7 @@ public class AnapaLoader extends BaseLoader {
                 FlightDetail detail = new FlightDetail();
                 detail.setFlightNumber(tdsList.get(2).text());
                 String status = tdsList.get(6).text();
+
                 String time = tdsList.get(1).text();
                 String schedulDt = getDateTime(i - 1, time);
                 String actualTime = getTimeFromStatus(status);
@@ -114,14 +115,14 @@ public class AnapaLoader extends BaseLoader {
                 if (status.contains("по расписанию")) {
                     detail.setStatus(ArrivalStatus.SCHEDULED);
                 } else if (status.contains("ВЫЛЕТЕЛ в")){
-                    detail.setStatus(ArrivalStatus.SCHEDULED);
+                    detail.setStatus(ArrivalStatus.DEPARTED);
                 } else if (status.contains("вылет задержан до")) {
                     detail.setStatus(ArrivalStatus.DELAYED);
                 } else if (status.equals("отменен")) {
                     detail.setStatus(ArrivalStatus.CANCELLED);
                 }
 
-                if(!time.equals(actualTime)) {
+                if(!time.equals(actualTime) && actualDt.length() >= 5) {
                     detail.setActual(actualDt);
                 }
                 detail.setScheduled(schedulDt);
