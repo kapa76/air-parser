@@ -5,7 +5,7 @@ import ru.air.common.ArrivalStatus;
 import ru.air.entity.Flight;
 import ru.air.entity.FlightDetail;
 import ru.air.loader.PageLoader;
-import ru.air.parser.BaseLoader;
+import ru.air.loader.BaseLoader;
 import ru.air.parser.xml.OnlineArrive;
 
 import javax.xml.bind.JAXBContext;

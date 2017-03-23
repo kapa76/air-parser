@@ -9,7 +9,7 @@ import ru.air.common.ArrivalStatus;
 import ru.air.entity.FlightAD;
 import ru.air.entity.FlightDetail;
 import ru.air.loader.PageLoader;
-import ru.air.parser.BaseLoader;
+import ru.air.loader.BaseLoader;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -25,9 +25,7 @@ public class BangkokLoader extends BaseLoader {
     private String arrivalUrl = "http://www.suvarnabhumiairport.com/en/3-passenger-arrivals";
     private String departuresUrl = "http://www.suvarnabhumiairport.com/en/4-passenger-departures";
     private String outputTimePattern = "yyyy-MM-d HH:mm";
-
     private String formatterUrlDate = "yyyy-MM-d";
-
 
     public BangkokLoader(AirportEnum airport) {
         super(airport);

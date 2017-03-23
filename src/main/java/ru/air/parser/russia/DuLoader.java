@@ -9,10 +9,9 @@ import ru.air.common.ArrivalStatus;
 import ru.air.entity.Flight;
 import ru.air.entity.FlightDetail;
 import ru.air.loader.PageLoader;
-import ru.air.parser.BaseLoader;
+import ru.air.loader.BaseLoader;
 
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

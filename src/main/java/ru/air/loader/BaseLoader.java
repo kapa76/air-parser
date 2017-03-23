@@ -1,10 +1,11 @@
-package ru.air.parser;
+package ru.air.loader;
 
 import com.gargoylesoftware.htmlunit.NicelyResynchronizingAjaxController;
 import com.gargoylesoftware.htmlunit.ScriptException;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import ru.air.common.AirportEnum;
+import ru.air.entity.FlightAD;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -12,7 +13,7 @@ import java.net.MalformedURLException;
 /**
  * Created by Admin on 23.10.2016.
  */
-public class BaseLoader {
+public abstract class BaseLoader {
 
     private int minusHour = -4;
     private int plusHour = 12;
@@ -34,10 +35,10 @@ public class BaseLoader {
 
     public BaseLoader(AirportEnum airport) {
         this.airport = airport;
-        this.webClient = new WebClient();
-        webClient.setAjaxController(new NicelyResynchronizingAjaxController());
-        webClient.getOptions().setThrowExceptionOnScriptError(false);
-        webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
+//        this.webClient = new WebClient();
+//        webClient.setAjaxController(new NicelyResynchronizingAjaxController());
+//        webClient.getOptions().setThrowExceptionOnScriptError(false);
+//        webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
     }
 
     public HtmlPage getHtmlPage() {
@@ -86,4 +87,6 @@ public class BaseLoader {
     public void setPlusHour(int plusHour) {
         this.plusHour = plusHour;
     }
+
+    public abstract FlightAD load();
 }

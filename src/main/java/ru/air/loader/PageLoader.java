@@ -22,9 +22,10 @@ import java.util.Map;
  */
 public class PageLoader {
     private static String USER_AGENT = "Mozilla/5.0 (Windows; U; Windows NT 5.1; ru-RU; rv:1.9.1.4) Gecko/20091016 Firefox/3.5.4 (.NET CLR 3.5.30729)";
+    private static HttpClient client = HttpClientBuilder.create().build();
 
     public static String Loader(String url) {
-        HttpClient client = HttpClientBuilder.create().build();
+//        HttpClient client = HttpClientBuilder.create().build();
         HttpGet httpGet = new HttpGet(url);
         String body = "";
         try {
@@ -43,7 +44,7 @@ public class PageLoader {
     }
 
     public static String LoaderPost(String url) {
-        HttpClient client = HttpClientBuilder.create().build();
+//        HttpClient client = HttpClientBuilder.create().build();
         HttpPost httpPost = new HttpPost(url);
         String body = "";
         try {
@@ -68,7 +69,7 @@ public class PageLoader {
     }
 
     public static String LoaderPostSamara(String url) {
-        HttpClient client = HttpClientBuilder.create().build();
+//        HttpClient client = HttpClientBuilder.create().build();
         HttpPost httpPost = new HttpPost(url);
         String body = "";
         try {
@@ -97,7 +98,7 @@ public class PageLoader {
     }
 
     public static String LoaderPostKoltsovo(String url) {
-        HttpClient client = HttpClientBuilder.create().build();
+//        HttpClient client = HttpClientBuilder.create().build();
         HttpPost httpPost = new HttpPost(url);
         String body = "";
         try {
@@ -149,26 +150,80 @@ public class PageLoader {
     }
 
     public static String LoaderChelyabinksPost(String httpUrl, String paramName, String paramValue) {
-        HttpClient client = HttpClientBuilder.create().build();
+//        HttpClient client = HttpClientBuilder.create().build();
         HttpPost httpPost = new HttpPost(httpUrl);
         String body = "";
         try {
             httpPost.addHeader("User-Agent", USER_AGENT);
             httpPost.addHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
             httpPost.addHeader("Accept", "application/json");
-//            httpPost.addHeader("Host", "www.koltsovo.ru");
-//            httpPost.addHeader("Origin", "http://www.koltsovo.ru");
-//            httpPost.addHeader("Referer", "http://www.koltsovo.ru/ru/onlayn_tablo");
-//            httpPost.addHeader("Cookie", setCockieFromResponse("http://www.koltsovo.ru/ru/onlayn_tablo"));
-//            httpPost.addHeader("DNT", "1");
 
             ArrayList<NameValuePair> postParameters;
             postParameters = new ArrayList<NameValuePair>();
             postParameters.add(new BasicNameValuePair(paramName, paramValue));
 
-//            postParameters.add(new BasicNameValuePair("arrive", ""));
-//            postParameters.add(new BasicNameValuePair("rip", "91.246.100.79"));
-//            postParameters.add(new BasicNameValuePair("uag", USER_AGENT));
+            httpPost.setEntity(new UrlEncodedFormEntity(postParameters));
+            HttpResponse response = client.execute(httpPost);
+            int statusCode = response.getStatusLine().getStatusCode();
+
+            if (statusCode == 200) {
+                body = EntityUtils.toString(response.getEntity());
+            }
+        } catch (IOException exception) {
+            System.out.println("PageLoader: can't load page: " + exception.getMessage());
+        }
+        return body;
+    }
+
+    public static String LoaderPostFilterAtlanta(String httpUrl, Map<String, String> params) {
+//        HttpClient client = HttpClientBuilder.create().build();
+        Loader("http://apps.atl.com/Passenger/FlightInfo/Search.aspx?FIDSType=A&SearchAirline=&SearchFlight=&SearchCity=");
+
+        HttpPost httpPost = new HttpPost(httpUrl);
+        String body = "";
+        try {
+            httpPost.addHeader("User-Agent", USER_AGENT);
+            httpPost.addHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+            httpPost.addHeader("Accept", "application/json");
+            httpPost.addHeader("Host", "apps.atl.com");
+            httpPost.addHeader("Origin", "http://apps.atl.com");
+            httpPost.addHeader("Referer", "http://apps.atl.com/Passenger/FlightInfo/Search.aspx?FIDSType=A&SearchAirline=&SearchFlight=&SearchCity=");
+            httpPost.addHeader("X-MicrosoftAjax", "Delta=true");
+            httpPost.addHeader("X-Requested-With", "XMLHttpRequest");
+            ArrayList<NameValuePair> postParameters;
+            postParameters = new ArrayList<NameValuePair>();
+
+            for (String key : params.keySet()) {
+                postParameters.add(new BasicNameValuePair(key, params.get(key)));
+            }
+
+            httpPost.setEntity(new UrlEncodedFormEntity(postParameters));
+            HttpResponse response = client.execute(httpPost);
+            int statusCode = response.getStatusLine().getStatusCode();
+
+            if (statusCode == 200) {
+                body = EntityUtils.toString(response.getEntity());
+            }
+        } catch (IOException exception) {
+            System.out.println("PageLoader: can't load page: " + exception.getMessage());
+        }
+        return body;
+    }
+
+    public static String PostBarselonaArrival(String httpUrl) {
+        HttpPost httpPost = new HttpPost(httpUrl);
+        String body = "";
+        try {
+            httpPost.addHeader("User-Agent", USER_AGENT);
+            httpPost.addHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+            ArrayList<NameValuePair> postParameters;
+            postParameters = new ArrayList<NameValuePair>();
+
+            postParameters.add(new BasicNameValuePair("mov", "L"));
+            postParameters.add(new BasicNameValuePair("origin_ac", "BCN"));
+            postParameters.add(new BasicNameValuePair("accion", "busqueda"));
+            postParameters.add(new BasicNameValuePair("pagename", "infovuelos"));
+            postParameters.add(new BasicNameValuePair("Language", "EN_GB"));
 
             httpPost.setEntity(new UrlEncodedFormEntity(postParameters));
             HttpResponse response = client.execute(httpPost);

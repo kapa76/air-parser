@@ -11,7 +11,7 @@ import ru.air.common.ArrivalStatus;
 import ru.air.entity.FlightAD;
 import ru.air.entity.FlightDetail;
 import ru.air.loader.PageLoader;
-import ru.air.parser.BaseLoader;
+import ru.air.loader.BaseLoader;
 
 import java.util.ArrayList;
 import java.util.List;
