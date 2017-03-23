@@ -44,11 +44,11 @@ public class AnapaLoader extends BaseLoader {
 
     private List<FlightDetail> loadArrival() {
         List<FlightDetail> value = new ArrayList<>();
-        value.addAll(parse(PageLoader.Loader(URL)));
+        value.addAll(parseArrival(PageLoader.Loader(URL)));
         return value;
     }
 
-    private List<FlightDetail> parse(String strBody) {
+    private List<FlightDetail> parseArrival(String strBody) {
         List<FlightDetail> detailList = new ArrayList<>();
 
         org.jsoup.nodes.Document doc = Jsoup.parse(strBody);
@@ -66,7 +66,9 @@ public class AnapaLoader extends BaseLoader {
                 String status = tdsList.get(6).text();
                 String time = tdsList.get(1).text();
                 String dt = getDateTime(i - 1, time);
-                if (status.equals("прибыл")) {
+                String actualTime = "";
+                if (status.equals("прибыл в")) {
+                    actualTime = getDateTime(i - 1, status.substring(7, status.length() - 1));
                     detail.setStatus(ArrivalStatus.LANDED);
                 } else if (status.equals("по расписанию")) {
                     detail.setStatus(ArrivalStatus.SCHEDULED);
@@ -76,8 +78,10 @@ public class AnapaLoader extends BaseLoader {
                     detail.setStatus(ArrivalStatus.CANCELLED);
                 }
 
-                detail.setActual(dt);
-                detail.setScheduled("");
+                if (actualTime.length() > 5) {
+                    detail.setActual(actualTime);
+                }
+                detail.setScheduled(dt);
                 detail.setEstimated("");
                 detailList.add(detail);
             }
@@ -108,13 +112,13 @@ public class AnapaLoader extends BaseLoader {
                 String actualTime = getTimeFromStatus(status);
                 String actualDt = "";
 
-                if(actualTime.length() > 0) {
+                if (actualTime.length() > 0) {
                     actualDt = getDateTime(i - 1, actualTime);
                 }
 
                 if (status.contains("по расписанию")) {
                     detail.setStatus(ArrivalStatus.SCHEDULED);
-                } else if (status.contains("ВЫЛЕТЕЛ в")){
+                } else if (status.contains("ВЫЛЕТЕЛ в")) {
                     detail.setStatus(ArrivalStatus.DEPARTED);
                 } else if (status.contains("вылет задержан до")) {
                     detail.setStatus(ArrivalStatus.DELAYED);
@@ -122,7 +126,7 @@ public class AnapaLoader extends BaseLoader {
                     detail.setStatus(ArrivalStatus.CANCELLED);
                 }
 
-                if(!time.equals(actualTime) && actualDt.length() >= 5) {
+                if (!time.equals(actualTime) && actualDt.length() >= 5) {
                     detail.setActual(actualDt);
                 }
                 detail.setScheduled(schedulDt);
@@ -135,7 +139,7 @@ public class AnapaLoader extends BaseLoader {
     }
 
     private String getTimeFromStatus(String st) {
-        if(st.length() > 10 && st.contains("ВЫЛЕТЕЛ в ")){
+        if (st.length() > 10 && st.contains("ВЫЛЕТЕЛ в ")) {
             return st.replace("ВЫЛЕТЕЛ в ", "");
         }
         return "";
