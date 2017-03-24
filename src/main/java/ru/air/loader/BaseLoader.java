@@ -35,16 +35,35 @@ public abstract class BaseLoader {
 
     public BaseLoader(AirportEnum airport) {
         this.airport = airport;
-//        this.webClient = new WebClient();
-//        webClient.setAjaxController(new NicelyResynchronizingAjaxController());
-//        webClient.getOptions().setThrowExceptionOnScriptError(false);
-//        webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
+    }
+
+    public BaseLoader(AirportEnum airport, boolean flag) {
+        this.airport = airport;
+        this.webClient = new WebClient();
+        webClient.setAjaxController(new NicelyResynchronizingAjaxController());
+        webClient.getOptions().setThrowExceptionOnScriptError(false);
+        webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
     }
 
     public HtmlPage getHtmlPage() {
         HtmlPage page = null;
         try {
             page = (HtmlPage) webClient.getPage(airport.getUrl());
+        } catch (ScriptException scriptException) {
+            ;
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return page;
+    }
+
+    public HtmlPage getHtmlPage(String url) {
+        HtmlPage page = null;
+        try {
+            page = (HtmlPage) webClient.getPage(url);
         } catch (ScriptException scriptException) {
             ;
         } catch (MalformedURLException e) {

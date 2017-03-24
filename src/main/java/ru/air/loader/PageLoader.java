@@ -210,31 +210,4 @@ public class PageLoader {
         return body;
     }
 
-    public static String PostBarselonaArrival(String httpUrl) {
-        HttpPost httpPost = new HttpPost(httpUrl);
-        String body = "";
-        try {
-            httpPost.addHeader("User-Agent", USER_AGENT);
-            httpPost.addHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
-            ArrayList<NameValuePair> postParameters;
-            postParameters = new ArrayList<NameValuePair>();
-
-            postParameters.add(new BasicNameValuePair("mov", "L"));
-            postParameters.add(new BasicNameValuePair("origin_ac", "BCN"));
-            postParameters.add(new BasicNameValuePair("accion", "busqueda"));
-            postParameters.add(new BasicNameValuePair("pagename", "infovuelos"));
-            postParameters.add(new BasicNameValuePair("Language", "EN_GB"));
-
-            httpPost.setEntity(new UrlEncodedFormEntity(postParameters));
-            HttpResponse response = client.execute(httpPost);
-            int statusCode = response.getStatusLine().getStatusCode();
-
-            if (statusCode == 200) {
-                body = EntityUtils.toString(response.getEntity());
-            }
-        } catch (IOException exception) {
-            System.out.println("PageLoader: can't load page: " + exception.getMessage());
-        }
-        return body;
-    }
 }

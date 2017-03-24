@@ -4,6 +4,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.ObjectWriter;
 import ru.air.common.AirportEnum;
 import ru.air.entity.Flight;
+import ru.air.loader.AbstractLoader;
 import ru.air.parser.AirParser;
 import ru.air.parser.russia.SoLoader;
 
@@ -12,27 +13,11 @@ import java.io.IOException;
 /**
  * Created by kapa on 31.10.16.
  */
-public class So implements AirParser {
+public class So extends AbstractLoader implements AirParser {
     private SoLoader loader;
 
-    public So(){
-        loader = new SoLoader(AirportEnum.SOCHI);
+    public So() {
+        setLoader( new SoLoader(AirportEnum.SOCHI));
     }
 
-    public String parse() {
-        Flight flight = loader.load();
-
-        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-        String json = "";
-
-        try {
-            json = ow.writeValueAsString(flight);
-            System.out.println(json);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return json;
-    }
 }

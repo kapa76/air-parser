@@ -3,6 +3,7 @@ package ru.air.parser.russia;
 import ru.air.common.AirportEnum;
 import ru.air.common.ArrivalStatus;
 import ru.air.entity.Flight;
+import ru.air.entity.FlightAD;
 import ru.air.entity.FlightDetail;
 import ru.air.loader.PageLoader;
 import ru.air.loader.BaseLoader;
@@ -32,8 +33,8 @@ public class EkLoader extends BaseLoader {
         super(airport);
     }
 
-    public Flight load() {
-        Flight flight = new Flight();
+    public FlightAD load() {
+        FlightAD flight = new FlightAD();
         flight.setAirportId(getAirport().getAirportId());
         flight.setArrivals(loadDataFromSite());
         return flight;

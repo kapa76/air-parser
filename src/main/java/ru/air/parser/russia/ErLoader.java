@@ -3,6 +3,7 @@ package ru.air.parser.russia;
 import ru.air.common.AirportEnum;
 import ru.air.common.ArrivalStatus;
 import ru.air.entity.Flight;
+import ru.air.entity.FlightAD;
 import ru.air.entity.FlightDetail;
 import ru.air.loader.PageLoader;
 import ru.air.loader.BaseLoader;
@@ -53,7 +54,7 @@ public class ErLoader extends BaseLoader {
 
     }
 
-    public Flight load() {
+    public FlightAD load() {
         List<FlightDetail> flightDetailList = new ArrayList<FlightDetail>();
 
         String body = loadDataFromSite();
@@ -96,7 +97,7 @@ public class ErLoader extends BaseLoader {
             flightDetailList.add(detail);
         }
 
-        Flight flight = new Flight();
+        FlightAD flight = new FlightAD();
         flight.setAirportId(getAirport().getAirportId());
         flight.setArrivals(flightDetailList);
         return flight;
