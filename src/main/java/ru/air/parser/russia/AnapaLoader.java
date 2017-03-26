@@ -67,14 +67,14 @@ public class AnapaLoader extends BaseLoader {
                 String time = tdsList.get(1).text();
                 String dt = getDateTime(i - 1, time);
                 String actualTime = "";
-                if (status.equals("прибыл в")) {
+                if (status.contains("прибыл в")) {
                     actualTime = getDateTime(i - 1, status.substring(7, status.length() - 1));
                     detail.setStatus(ArrivalStatus.LANDED);
-                } else if (status.equals("по расписанию")) {
+                } else if (status.contains("по расписанию")) {
                     detail.setStatus(ArrivalStatus.SCHEDULED);
                 } else if (status.contains("вылет задержан до")) {
                     detail.setStatus(ArrivalStatus.DELAYED);
-                } else if (status.equals("отменен")) {
+                } else if (status.contains("отменен")) {
                     detail.setStatus(ArrivalStatus.CANCELLED);
                 }
 

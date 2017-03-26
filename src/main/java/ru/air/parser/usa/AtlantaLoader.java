@@ -1,12 +1,13 @@
 package ru.air.parser.usa;
 
+import com.gargoylesoftware.htmlunit.html.*;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import ru.air.common.AirportEnum;
 import ru.air.entity.FlightAD;
 import ru.air.entity.FlightDetail;
-import ru.air.loader.PageLoader;
 import ru.air.loader.BaseLoader;
 
 import java.util.*;
@@ -19,14 +20,14 @@ public class AtlantaLoader extends BaseLoader {
     private String outputTimePattern = "yyyy-MM-d HH:mm";
     private String formatterUrlDate = "yyyy-MM-d";
 
-    private String temporaryUrl = "http://apps.atl.com/Passenger/FlightInfo/Search.aspx?FIDSType=A&SearchAirline=&SearchFlight=&SearchCity=";
+    private String url = "http://apps.atl.com/Passenger/FlightInfo/Search.aspx?FIDSType=A&SearchAirline=&SearchFlight=&SearchCity=";
 
     private List<String> timePeriod = new ArrayList<>();
     private List<String> airLineList = new ArrayList<>();
 
 
     public AtlantaLoader(AirportEnum airport) {
-        super(airport);
+        super(airport, true);
     }
 
     public FlightAD load() {
@@ -36,61 +37,160 @@ public class AtlantaLoader extends BaseLoader {
         timePeriod.addAll(getTimePeriod());
         airLineList.addAll(getAirlineList());
 
-        loadParse(flight);
-        //flight.setDeparture(loadParse(departuresUrl, false));
+        loadParseArrival(flight);
+        loadParseDeparture(flight);
         return flight;
     }
 
-    private void loadParse(FlightAD flights) {
-        for (String period : timePeriod) {
-            for (String airLine : airLineList) {
-                Map<String, String> params = new HashMap<>();
-                params.put("ctl00$bodySection$dplAirlineID1", airLine);
-                params.put("ctl00$bodySection$dplFlightTime", period);
+    private void loadParseDeparture(FlightAD flights) {
+        int currentPage = 1;
+        try {
+            HtmlPage page = getWebClient().getPage(url);
 
-                params.put("ctl00$bodySection$btngetflights", "FILTER RESULTS");
-                params.put("__ASYNCPOST", "false");
-                params.put("ctl00$tbSearchText", "");
-                params.put("ctl00$bodySection$wucFlightInfo$txtAirline", "");
-                params.put("ctl00$bodySection$wucFlightInfo$txtAirlineCode", "");
-                params.put("ctl00$bodySection$wucFlightInfo$txtFlightID", "");
-                params.put("ctl00$bodySection$wucFlightInfo$MaskedEditExtender_FlightNo_ClientState", "");
-                params.put("ctl00$bodySection$wucFlightInfo$txtFlightCity", "");
-                params.put("ctl00$bodySection$rblArchieved", "1");
-                params.put("ctl00$bodySection$dplSortedBy", "F_City");
-                params.put("ctl00$bodySection$dplCity1", "");
-                params.put("ctl00$bodySection$dplFlightNumber1", "0");
-                params.put("ctl00$ScriptManager", "ctl00$ScriptManager|ctl00$bodySection$btngetflights");
-                params.put("bodySection_TabContainer_Flights_ClientState", "{\"ActiveTabIndex\":1,\"TabEnabledState\":[true,true],\"TabWasLoadedOnceState\":[true,false]}");
-                params.put("__EVENTTARGET", "ctl00$bodySection$TabContainer_Flights$tabArrival$gridArrivalFlights");
+            for (String period : timePeriod) {
+                for (String airLine : airLineList) {
 
-                String body = PageLoader.LoaderPostFilterAtlanta(temporaryUrl, params);
-                flights.getArrivals().addAll(parseArrival(body));
-//                flights.getDeparture().addAll(parseDeparture(body));
+                    while (true) {
+
+                        HtmlSelect changeAirline = (HtmlSelect) page.getElementById("bodySection_dplAirlineID1");
+                        HtmlOption air = changeAirline.getOptionByValue(airLine);
+                        page = changeAirline.setSelectedAttribute(air, true);
+
+                        HtmlSelect changeTimePeriod = (HtmlSelect) page.getElementById("bodySection_dplFlightTime");
+                        HtmlOption time = changeTimePeriod.getOptionByValue(period);
+                        page = changeTimePeriod.setSelectedAttribute(time, true);
+
+                        HtmlSubmitInput submitButton = (HtmlSubmitInput) page.getElementById("bodySection_btngetflights");
+                        page = submitButton.click();
+                        String body = page.asXml();
+
+                        flights.getArrivals().addAll(parseDeparture(body));
+                        String nextUrl = getNextHref(body, currentPage);
+
+                        if (nextUrl.length() > 0) {
+                            HtmlAnchor htmlAnchor = page.getAnchorByHref(nextUrl);
+                            page = htmlAnchor.click();
+                            currentPage++;
+                        } else {
+                            break;
+                        }
+                    }
+                }
             }
+        } catch (Exception exception) {
+
         }
+    }
+
+    private void loadParseArrival(FlightAD flights) {
+        int currentPage = 1;
+        try {
+            HtmlPage page = getWebClient().getPage(url);
+
+            for (String period : timePeriod) {
+                for (String airLine : airLineList) {
+
+                    while (true) {
+
+                        HtmlSelect changeAirline = (HtmlSelect) page.getElementById("bodySection_dplAirlineID1");
+                        HtmlOption air = changeAirline.getOptionByValue(airLine);
+                        page = changeAirline.setSelectedAttribute(air, true);
+
+                        HtmlSelect changeTimePeriod = (HtmlSelect) page.getElementById("bodySection_dplFlightTime");
+                        HtmlOption time = changeTimePeriod.getOptionByValue(period);
+                        page = changeTimePeriod.setSelectedAttribute(time, true);
+
+                        HtmlSubmitInput submitButton = (HtmlSubmitInput) page.getElementById("bodySection_btngetflights");
+                        page = submitButton.click();
+                        String body = page.asXml();
+
+                        flights.getArrivals().addAll(parseArrival(body));
+//                flights.getDeparture().addAll(parseDeparture(body));
+
+                        String nextUrl = getNextHref(body, currentPage);
+                        if (nextUrl.length() > 0) {
+                            HtmlAnchor htmlAnchor = page.getAnchorByHref(nextUrl);
+                            page = htmlAnchor.click();
+                            currentPage++;
+                        } else {
+                            break;
+                        }
+                    }
+                }
+            }
+        } catch (Exception exception) {
+
+        }
+
+    }
+
+    private String getNextHref(String body, int currentPage) {
+        String href = "";
+        Document doc = Jsoup.parse(body);
+        Elements rows = doc.select("table#GridClassArrival").select("tbody").select("tr");
+        Element elem = rows.get(rows.size() - 1);
+        Elements r = elem.select("td");
+
+        if (r.size() == 1) {
+            Element td = r.select("table").select("tbody").select("tr").get(0);
+            Elements next = td.select("td");
+
+            if (next.size() > currentPage) {
+                href = next.get(currentPage).select("a").attr("href");
+            } else {
+                return "";
+            }
+        } else {
+            return "";
+        }
+
+        return href;
     }
 
     private Collection<? extends FlightDetail> parseArrival(String body) {
-        String buildBody = buildBodyFromStrings(body);
+        List<FlightDetail> fdl = new ArrayList<>();
 
-        Document doc = Jsoup.parse(buildBody);
-        Elements trs1 = doc.select("table.GridClassArrival").select("tr");
-        Elements trs2 = doc.select("table.GridClassDeparture").select("tr");
+        Document doc = Jsoup.parse(body);
+        Elements rows = doc.select("table.GridClassArrival").select("tbody").select("tr");
+        for (int i = 0; i < rows.size(); i++) {
+            Elements tds = rows.get(i).select("td");
+            if (tds.size() > 1 && !tds.get(0).text().contains("There are currently") ) {
+                FlightDetail fd = new FlightDetail();
+
+                String flightNumber = tds.get(0).text();
+                String shedulerTime = tds.get(2).text();
+                String actualTime = tds.get(3).text();
+                String status = tds.get(4).text();
+
+            }
+        }
 
         return null;
+
+
     }
 
-    private String buildBodyFromStrings(String body) {
-        String[] strArray = body.split("\r\n");
-        String value = "";
-        for (String temp : strArray) {
-            if (!temp.contains("|")) {
-                value += temp;
-            }
+    private Collection<? extends FlightDetail> parseDeparture(String body) {
+        List<FlightDetail> fdl = new ArrayList<>();
 
+        Document doc = Jsoup.parse(body);
+        Elements rows = doc.select("table.GridClassDeparture").select("tbody").select("tr");
+        for (int i = 0; i < rows.size(); i++) {
+            Elements tds = rows.get(i).select("td");
+            if (tds.size() > 1 && !tds.get(0).text().contains("There are currently") ) {
+                FlightDetail fd = new FlightDetail();
+
+                String flightNumber = tds.get(0).text();
+                String shedulerTime = tds.get(2).text();
+                String actualTime = tds.get(3).text();
+                String status = tds.get(4).text();
+
+            }
         }
-        return value;
+
+        return null;
+
+
     }
 
     private List<String> getAirlineList() {
