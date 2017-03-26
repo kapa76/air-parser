@@ -6,10 +6,13 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import ru.air.common.AirportEnum;
+import ru.air.common.ArrivalStatus;
 import ru.air.entity.FlightAD;
 import ru.air.entity.FlightDetail;
 import ru.air.loader.BaseLoader;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -152,22 +155,43 @@ public class AtlantaLoader extends BaseLoader {
 
         Document doc = Jsoup.parse(body);
         Elements rows = doc.select("table.GridClassArrival").select("tbody").select("tr");
-        for (int i = 0; i < rows.size(); i++) {
+        for (int i = 1; i < rows.size(); i++) {
             Elements tds = rows.get(i).select("td");
-            if (tds.size() > 1 && !tds.get(0).text().contains("There are currently") ) {
+            if (tds.size() > 1 && !tds.get(0).text().contains("There are currently")) {
                 FlightDetail fd = new FlightDetail();
 
-                String flightNumber = tds.get(0).text();
+                Elements spans = tds.get(0).select("span");
+                String flightNumber = spans.get(1).text() + " " + spans.get(2).text();
                 String shedulerTime = tds.get(2).text();
                 String actualTime = tds.get(3).text();
                 String status = tds.get(4).text();
 
+                fd.setFlightNumber(flightNumber);
+                fd.setStatus(ArrivalStatus.SCHEDULED);
+                fd.setScheduled(getTimeFromAmPm(shedulerTime));
+                fd.setActual(getTimeFromAmPm(actualTime));
+
+                fdl.add(fd);
             }
         }
 
-        return null;
+        return fdl;
+    }
 
+    private String getTimeFromAmPm(String time) {
+        if (time.length() > 5) {
+            Date date = new Date();
+            SimpleDateFormat displayFormat = new SimpleDateFormat("yyyy-MM-d HH:mm");
+            SimpleDateFormat parseFormat = new SimpleDateFormat("hh:mm a");
+            try {
+                date = parseFormat.parse(time);
+            } catch(Exception exception){
 
+            }
+            return displayFormat.format(date) + ":00";
+        } else {
+            return "";
+        }
     }
 
     private Collection<? extends FlightDetail> parseDeparture(String body) {
@@ -175,22 +199,27 @@ public class AtlantaLoader extends BaseLoader {
 
         Document doc = Jsoup.parse(body);
         Elements rows = doc.select("table.GridClassDeparture").select("tbody").select("tr");
-        for (int i = 0; i < rows.size(); i++) {
+        for (int i = 1; i < rows.size(); i++) {
             Elements tds = rows.get(i).select("td");
-            if (tds.size() > 1 && !tds.get(0).text().contains("There are currently") ) {
+            if (tds.size() > 1 && !tds.get(0).text().contains("There are currently")) {
                 FlightDetail fd = new FlightDetail();
 
-                String flightNumber = tds.get(0).text();
+                Elements spans = tds.get(0).select("span");
+                String flightNumber = spans.get(1).text() + " " + spans.get(2).text();
                 String shedulerTime = tds.get(2).text();
                 String actualTime = tds.get(3).text();
                 String status = tds.get(4).text();
 
+                fd.setFlightNumber(flightNumber);
+                fd.setStatus(ArrivalStatus.SCHEDULED);
+                fd.setScheduled(getTimeFromAmPm(shedulerTime));
+                fd.setActual(getTimeFromAmPm(actualTime));
+                fdl.add(fd);
+
             }
         }
 
-        return null;
-
-
+        return fdl;
     }
 
     private List<String> getAirlineList() {
