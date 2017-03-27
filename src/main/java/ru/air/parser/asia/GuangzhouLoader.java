@@ -55,18 +55,18 @@ public class GuangzhouLoader extends BaseLoader {
         return fdl;
     }
 
-    private Collection<? extends FlightDetail> parseDeparture(Integer flightType, String dateFrom, String dateTo) {
+    private List<FlightDetail> parseDeparture(Integer flightType, String dateFrom, String dateTo) {
         List<FlightDetail> fdl = new ArrayList<>();
         int pageNumber = 0;
 
         String body = PageLoader.LoaderPostGuandjou(urlDepart, pageNumber, flightType, dateFrom, dateTo);
         while (true) {
-            fdl.addAll(parseArrivalPage(body));
+            fdl.addAll(parseArrivalPage(body, dateFrom));
             pageNumber++;
 
             String nextUrl = getNextPage(body);
             if (nextUrl.length() > 0) {
-                body = PageLoader.LoaderPostGuandjou(urlDepart, pageNumber, flightType, dateFrom, dateTo);
+                body = PageLoader.LoaderPostGuandjou(nextUrl, pageNumber, flightType, dateFrom, dateTo);
             } else {
                 break;
             }
@@ -84,17 +84,23 @@ public class GuangzhouLoader extends BaseLoader {
         return fdl;
     }
 
-    private Collection<? extends FlightDetail> parseArrival(Integer flightType, String dateFrom, String dateTo) {
+    private List<FlightDetail> parseArrival(Integer flightType, String dateFrom, String dateTo) {
         List<FlightDetail> fdl = new ArrayList<>();
         int pageNumber = 0;
 
         String body = PageLoader.LoaderPostGuandjou(urlArrive, pageNumber, flightType, dateFrom, dateTo);
         while (true) {
-            fdl.addAll(parseArrivalPage(body));
+            fdl.addAll(parseArrivalPage(body, dateFrom));
             pageNumber++;
             String nextUrl = getNextPage(body);
             if (nextUrl.length() > 0) {
-                body = PageLoader.LoaderPostGuandjou(urlArrive, pageNumber, flightType, dateFrom, dateTo);
+
+                long bytes = PageLoader.getBytesTransferred();
+                long times = PageLoader.getTimeExecutingSecs();
+                System.out.println("Size: " + fdl.size() + ", bytes: " + bytes + ", time: " + times);
+
+                body = PageLoader.LoaderPostGuandjou(nextUrl, pageNumber, flightType, dateFrom, dateTo);
+
             } else {
                 break;
             }
@@ -115,7 +121,7 @@ public class GuangzhouLoader extends BaseLoader {
         return url;
     }
 
-    private Collection<? extends FlightDetail> parseArrivalPage(String body) {
+    private List<FlightDetail> parseArrivalPage(String body, String date) {
         List<FlightDetail> fdl = new ArrayList<>();
         Document doc = Jsoup.parse(body);
         Elements rows = doc.select("table.table").select("tbody").select("tr");
@@ -123,8 +129,34 @@ public class GuangzhouLoader extends BaseLoader {
             Elements tds = rows.get(i).select("td");
 
             FlightDetail fd = new FlightDetail();
-            String urlHrefDetail = tds.get(7).select("a").attr("href");
-            fillFilghtDetail(fd, urlHrefDetail);
+            //String urlHrefDetail = tds.get(7).select("a").attr("href");
+
+            String schedulerTime = date + " " + tds.get(0).text() + ":00";
+            //String actualTime = tds.get(5).text() + ":00";
+            String status = tds.get(6).text();
+            String flightNumber = tds.get(2).text();
+
+            fd.setFlightNumber(flightNumber);
+            fd.setScheduled(schedulerTime);
+
+            if (status.contains("last bag") || status.contains("arrived") || status.contains("first bag")) {
+                fd.setStatus(ArrivalStatus.LANDED);
+            } else if (status.contains("cancel")) {
+                fd.setStatus(ArrivalStatus.CANCELLED);
+            } else if (status.contains("arriving")) {
+                fd.setStatus(ArrivalStatus.EXPECTED);
+            } else if (status.contains("delay")) {
+                fd.setStatus(ArrivalStatus.DELAYED);
+            } else if (status.contains("depart")) {
+                fd.setStatus(ArrivalStatus.DEPARTED);
+            } else if (status.contains("gate close")) {
+                fd.setStatus(ArrivalStatus.DEPARTED);
+            } else if (status.length() == 0) {
+                fd.setStatus(ArrivalStatus.SCHEDULED);
+            }
+
+            //fillFilghtDetail(fd, urlHrefDetail);
+
             fdl.add(fd);
         }
 

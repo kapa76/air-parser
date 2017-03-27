@@ -69,7 +69,7 @@ public class ArhangelskLoader extends BaseLoader {
                 }
 
                 if (status.contains("Перенос на")) {
-                    detail.setStatus(ArrivalStatus.TRANSFERED);
+                    detail.setStatus(ArrivalStatus.CANCELLED);
                 } else if (status.contains("Отправлен")) {
                     detail.setStatus(ArrivalStatus.DEPARTED);
                 } else if (status.equals("Рейс прибыл")) {
@@ -84,6 +84,8 @@ public class ArhangelskLoader extends BaseLoader {
                     detail.setStatus(ArrivalStatus.LANDED);
                 } else if (status.contains("Вылетел в")) {
                     detail.setStatus(ArrivalStatus.EXPECTED);
+                } else if(status.contains("Задержан до")){
+                    detail.setStatus(ArrivalStatus.DELAYED);
                 }
 
                 if (!schedulerTime.equals(actualTime) && actualTime.length() >= 5) {

@@ -17,7 +17,6 @@
 12. CEK - Челябинск
 13. ARH - Архангельск
 14. AMS - Амстердам North Holland
-
 15. ATL - Hartsfield Jackson Atlanta International, Georgia
 16. BCN - Barcelona International
 17. BKK - Suvarnabhumi Bangkok
