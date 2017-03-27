@@ -15,6 +15,7 @@ import ru.air.entity.FlightDetail;
 import ru.air.loader.BaseLoader;
 import ru.air.loader.PageLoader;
 
+import java.net.URLEncoder;
 import java.security.acl.Group;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -71,10 +72,13 @@ public class CharlesDeGaulleLoader extends BaseLoader {
             HtmlPage page = getWebClient().getPage(url);
 
             for (String city : cityValues) {
-                HtmlTextInput select = (HtmlTextInput) page.getElementById("txtDestination");
+                HtmlTextInput select = page.getHtmlElementById("txtDestination");
                 select.setText(city);
 
-                HtmlSubmitInput submit = (HtmlSubmitInput) page.getByXPath("//input[@type='submit' and @value='Find']").get(0);
+                HtmlHiddenInput selectHidden = page.getHtmlElementById("hiddenDestination");
+                selectHidden.setDefaultValue(city);
+
+                HtmlSubmitInput submit = page.getHtmlElementById("Search");
                 page = submit.click();
                 String body = page.asXml();
 
@@ -95,13 +99,13 @@ public class CharlesDeGaulleLoader extends BaseLoader {
 
         }
 
-        return null;
+        return fdl;
     }
 
     private Collection<? extends FlightDetail> parseArrivalPage(String body) {
         List<FlightDetail> fdl = new ArrayList<>();
         Document doc = Jsoup.parse(body);
-        Elements rows = doc.select("div.flightboard-table").select("div.flightboard-tr").select("flightboard-tr-top");
+        Elements rows = doc.select("div.flightboard-table").select("div.flightboard-tr").select("div.flightboard-tr-top");
 
         for (int i = 0; i < rows.size(); i++) {
             Elements tds = rows.get(i).select("div.flipboard");
@@ -109,9 +113,12 @@ public class CharlesDeGaulleLoader extends BaseLoader {
             FlightDetail fd = new FlightDetail();
             fd.setFlightNumber(tds.get(0).text());
 
-            String href = "http://www.parisaeroport.fr/en/passengers/flights/arrival-flights/" + tds.get(6).select("a").attr("href");
-            fillFlightDetailArrive(fd, href);
+            try {
+                String href = "http://www.parisaeroport.fr/en/passengers/flights/arrival-flights/" + tds.get(6).select("a").attr("href").replace(" ", "%20");
+                fillFlightDetailArrive(fd, href);
+            } catch (Exception exception) {
 
+            }
 
 /*
 <div data-flipboard-size="6" class="flipboard"><span>ZI222</span></div>
@@ -130,13 +137,35 @@ class="flipboard__link flipboard__link--label">Flight details</span><span>&gt;</
     }
 
     private void fillFlightDetailArrive(FlightDetail fd, String href) {
+
+        try {
+
+            HtmlPage testPage = getWebClient().getPage(href);
+            String aa = testPage.asXml();
+
+        } catch (Exception exception) {
+
+        }
+
+        /*
         String body = PageLoader.Loader(href);
         Document doc = Jsoup.parse(body);
-        String status = doc.select("div.grid__item.one-half.vol-header-right").select("div.vol-date.bold").text();
+        String cipher = doc.select("div.grid__item.one-half.vol-header-right").select("div.vol-date.bold").attr("data-encrypted");
 
+
+        String jsEncryptionMethod = doc.select("input.js-encryption-method").attr("value");
+        String jsEncryptionKey = doc.select("input.js-encryption-key").attr("value");
+        String jsEncryptionIv = doc.select("input.js-encryption-iv").attr("value");
+
+        String value = decrypt(cipher, jsEncryptionKey, jsEncryptionIv);
         // Arrival on 26/03/2017 at 18h40
 
         String actualDate = doc.select("div.ontime").text();
+        */
+    }
+
+    private String decrypt(String cipher, String jsEncryptionKey, String jsEncryptionIv) {
+        return null;
     }
 
     private boolean existRecord(String body, String city) {

@@ -1,8 +1,19 @@
 package ru.air.parser;
 
+import javax.crypto.*;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Base64;
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -15,31 +26,36 @@ import java.util.regex.Pattern;
 public class TestCommon {
 
     public static void main(String[] args) {
-        Calendar cal = Calendar.getInstance(Locale.ENGLISH);
 
+        String cipher = "uqWIzOvclP4Np3eIHFtW89qLk3p58H9z8I+spJ976NY=";
+        String key = "fc+qILPqqaCwaTUsZ87SiNn1cVn4k9siWAnxboYqhJI=";
+        String iv = "MGU8/JR7TUDwAWek4vaY9g==";
 
-        String inputPattern = "dd MMM HH:mm";
-        String localDateTime = "30 Oct 03:23";
-        try {
-            cal.setTime((new SimpleDateFormat(inputPattern, Locale.ENGLISH).parse(localDateTime)));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        System.out.println("cal: " + cal.getTime());
+        System.out.println(decrypt(cipher, key, iv));
 
 
     }
 
-/*
-*  "v049e0a6ce78328cec2d1f214f26b32cb": {
-    "Терминал": "A (новый терминал) внутренние воздушные линии",
-    "Номер рейса": "LIN-02804",
-    "Авиакомпания": "ООО " Вельталь   -   авиа   "",
-    "Плановый маршрут": "ХабаровскВладивосток",
-    "Время по расписанию": "16:00,  6 ноя 2016",
-    "Фактическое время": "16:12,  6 ноя 2016",
-    "Тип воздушного судна": "Hawker",
-    "Статус": "Прибыл"
-  },*/
+    public static String decrypt(String decodedText, String key, String iv)  {
+        try{
+
+            byte[] decodedKey = Base64.getDecoder().decode(key);
+            byte[] decodedIv  = Base64.getDecoder().decode(iv);
+
+            javax.crypto.spec.SecretKeySpec keyspec = new javax.crypto.spec.SecretKeySpec(decodedKey, "AES");
+            javax.crypto.spec.IvParameterSpec ivspec = new javax.crypto.spec.IvParameterSpec(decodedIv);
+
+            javax.crypto.Cipher cipher = javax.crypto.Cipher.getInstance("AES/CBC/NoPadding");
+            cipher.init(javax.crypto.Cipher.DECRYPT_MODE, keyspec, ivspec);
+            byte[] decrypted = cipher.doFinal(decodedText.getBytes());
+
+            String str = new String(decrypted);
+
+            return str;
+
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
 }

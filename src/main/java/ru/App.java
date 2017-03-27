@@ -22,14 +22,9 @@ public class App {
         this.airParser = airParser;
     }
 
-    public App() {
-        java.util.logging.Logger.getLogger("com.gargoylesoftware").setLevel(Level.OFF);
-    }
-
     public void load() {
         airParser.parse();
     }
-
 
     private static void usage() {
         System.out.println("Usage: Необходимо указать номер аэропорта");

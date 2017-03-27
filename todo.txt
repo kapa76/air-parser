@@ -22,9 +22,9 @@
 16. BCN - Barcelona International
 17. BKK - Suvarnabhumi Bangkok
 18. BOM - Chhatrapati Shivaji International Mumbai
+19. CAN - Guangzhou Baiyun International Guangzhou
 ------------------------------------
 
-19. CAN - Guangzhou Baiyun International Guangzhou
 20. CDG - Charles de Gaulle International Paris
 
 "airport_id": "HKG", - аэропорт вылета, правильно я понимаю.
