@@ -122,7 +122,7 @@ public class AtlantaLoader extends BaseLoader {
                 }
             }
         } catch (Exception exception) {
-
+            System.out.println(exception.getMessage());
         }
 
     }

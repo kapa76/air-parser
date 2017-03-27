@@ -1,1589 +1,259 @@
 {
-  "isGrouped": true,
-  "items": [
-    {
-      "group_name": "ALBANIA",
-      "group_items": [
-        {
-          "name": "TIRANA"
-        }
-      ]
-    },
-    {
-      "group_name": "ALGERIA",
-      "group_items": [
-        {
-          "name": "ALGIERS"
-        },
-        {
-          "name": "ANNABA"
-        },
-        {
-          "name": "BATNA"
-        },
-        {
-          "name": "BEJAIA"
-        },
-        {
-          "name": "BISKRA"
-        },
-        {
-          "name": "CHLEF"
-        },
-        {
-          "name": "CONSTANTINE"
-        },
-        {
-          "name": "EL OUED"
-        },
-        {
-          "name": "ORAN"
-        },
-        {
-          "name": "SETIF"
-        },
-        {
-          "name": "TLEMCEN"
-        }
-      ]
-    },
-    {
-      "group_name": "ANGOLA",
-      "group_items": [
-        {
-          "name": "LUANDA"
-        }
-      ]
-    },
-    {
-      "group_name": "ARGENTINA",
-      "group_items": [
-        {
-          "name": "BUENOS AIRES"
-        }
-      ]
-    },
-    {
-      "group_name": "ARMENIA",
-      "group_items": [
-        {
-          "name": "YEREVAN"
-        }
-      ]
-    },
-    {
-      "group_name": "AUSTRIA",
-      "group_items": [
-        {
-          "name": "SALZBURG"
-        },
-        {
-          "name": "VIENNA"
-        }
-      ]
-    },
-    {
-      "group_name": "AZERBAIJAN",
-      "group_items": [
-        {
-          "name": "BAKOU"
-        }
-      ]
-    },
-    {
-      "group_name": "BAHRAIN",
-      "group_items": [
-        {
-          "name": "BAHRAIN"
-        }
-      ]
-    },
-    {
-      "group_name": "BELARUS",
-      "group_items": [
-        {
-          "name": "MINSK 2 INTL"
-        }
-      ]
-    },
-    {
-      "group_name": "BELGIUM",
-      "group_items": [
-        {
-          "name": "BRUSSELS"
-        }
-      ]
-    },
-    {
-      "group_name": "BENIN",
-      "group_items": [
-        {
-          "name": "COTONOU"
-        }
-      ]
-    },
-    {
-      "group_name": "BRAZIL",
-      "group_items": [
-        {
-          "name": "RIO DE JANEIRO"
-        },
-        {
-          "name": "SAO PAULO"
-        }
-      ]
-    },
-    {
-      "group_name": "BULGARIA",
-      "group_items": [
-        {
-          "name": "SOFIA"
-        }
-      ]
-    },
-    {
-      "group_name": "BURKINA FASO",
-      "group_items": [
-        {
-          "name": "OUAGADOUGOU"
-        }
-      ]
-    },
-    {
-      "group_name": "CAMEROON",
-      "group_items": [
-        {
-          "name": "DOUALA"
-        },
-        {
-          "name": "YAOUNDE NSIMALEN"
-        }
-      ]
-    },
-    {
-      "group_name": "CANADA",
-      "group_items": [
-        {
-          "name": "MONTREAL"
-        },
-        {
-          "name": "MONTREAL TRUDEAU"
-        },
-        {
-          "name": "QUEBEC"
-        },
-        {
-          "name": "TORONTO"
-        },
-        {
-          "name": "VANCOUVER"
-        }
-      ]
-    },
-    {
-      "group_name": "CAPE VERDE",
-      "group_items": [
-        {
-          "name": "BOA VISTA"
-        },
-        {
-          "name": "ISLAND DE SAL"
-        },
-        {
-          "name": "PRAIA"
-        },
-        {
-          "name": "SAO VICENTE"
-        }
-      ]
-    },
-    {
-      "group_name": "CENTRAL AFRICAN REPUBLIC",
-      "group_items": [
-        {
-          "name": "BANGUI"
-        }
-      ]
-    },
-    {
-      "group_name": "CHAD",
-      "group_items": [
-        {
-          "name": "NDJAMENA"
-        }
-      ]
-    },
-    {
-      "group_name": "CHILE",
-      "group_items": [
-        {
-          "name": "SANTIAGO D.CHILE"
-        }
-      ]
-    },
-    {
-      "group_name": "CHINA (PEOPLES REP. OF)",
-      "group_items": [
-        {
-          "name": "BEIJING CAPITAL"
-        },
-        {
-          "name": "CHENGDU"
-        },
-        {
-          "name": "GUANGZHOU"
-        },
-        {
-          "name": "HANGZHOU"
-        },
-        {
-          "name": "KUNMING"
-        },
-        {
-          "name": "SHANGHAI PU DONG"
-        },
-        {
-          "name": "WUHAN"
-        },
-        {
-          "name": "XI AN XIANYANG"
-        }
-      ]
-    },
-    {
-      "group_name": "CHINESE TAIPEI",
-      "group_items": [
-        {
-          "name": "TAIPEI"
-        }
-      ]
-    },
-    {
-      "group_name": "COLOMBIA",
-      "group_items": [
-        {
-          "name": "BOGOTA"
-        }
-      ]
-    },
-    {
-      "group_name": "CONGO",
-      "group_items": [
-        {
-          "name": "BRAZZAVILLE"
-        },
-        {
-          "name": "POINTE NOIRE"
-        }
-      ]
-    },
-    {
-      "group_name": "CONGO (DEMOCRATIC REP. OF)",
-      "group_items": [
-        {
-          "name": "KINSHASA"
-        }
-      ]
-    },
-    {
-      "group_name": "COSTA RICA",
-      "group_items": [
-        {
-          "name": "SAN JOSE"
-        }
-      ]
-    },
-    {
-      "group_name": "COTE D'IVOIRE",
-      "group_items": [
-        {
-          "name": "ABIDJAN"
-        }
-      ]
-    },
-    {
-      "group_name": "CROATIA",
-      "group_items": [
-        {
-          "name": "DUBROVNIK"
-        },
-        {
-          "name": "SPLIT"
-        },
-        {
-          "name": "ZAGREB"
-        }
-      ]
-    },
-    {
-      "group_name": "CUBA",
-      "group_items": [
-        {
-          "name": "CAYO COCO"
-        },
-        {
-          "name": "LA HAVANA"
-        },
-        {
-          "name": "SANTA CLARA"
-        },
-        {
-          "name": "SANTIAGO DE CUBA"
-        },
-        {
-          "name": "VARADERO"
-        }
-      ]
-    },
-    {
-      "group_name": "CYPRUS",
-      "group_items": [
-        {
-          "name": "LARNACA"
-        },
-        {
-          "name": "PAPHOS"
-        }
-      ]
-    },
-    {
-      "group_name": "CZECH REPUBLIC",
-      "group_items": [
-        {
-          "name": "PRAGUE"
-        }
-      ]
-    },
-    {
-      "group_name": "DENMARK",
-      "group_items": [
-        {
-          "name": "BILLUND"
-        },
-        {
-          "name": "COPENHAGEN"
-        }
-      ]
-    },
-    {
-      "group_name": "DJIBOUTI",
-      "group_items": [
-        {
-          "name": "DJIBOUTI"
-        }
-      ]
-    },
-    {
-      "group_name": "DOMINICAN REPUBLIC",
-      "group_items": [
-        {
-          "name": "LA ROMANA"
-        },
-        {
-          "name": "PUERTO PLATA"
-        },
-        {
-          "name": "PUNTA CANA"
-        },
-        {
-          "name": "SAMANA"
-        },
-        {
-          "name": "STO DOMINGO L.A."
-        }
-      ]
-    },
-    {
-      "group_name": "EGYPT",
-      "group_items": [
-        {
-          "name": "CAIRO"
-        },
-        {
-          "name": "HURGHADA"
-        },
-        {
-          "name": "LUXOR"
-        },
-        {
-          "name": "MARSA  ALAM"
-        }
-      ]
-    },
-    {
-      "group_name": "EQUATORIAL GUINEA",
-      "group_items": [
-        {
-          "name": "MALABO"
-        }
-      ]
-    },
-    {
-      "group_name": "ESTONIA",
-      "group_items": [
-        {
-          "name": "TALLINN"
-        }
-      ]
-    },
-    {
-      "group_name": "ETHIOPIA",
-      "group_items": [
-        {
-          "name": "ADDIS ABABA"
-        }
-      ]
-    },
-    {
-      "group_name": "FINLAND",
-      "group_items": [
-        {
-          "name": "HELSINKI"
-        },
-        {
-          "name": "IVALO"
-        },
-        {
-          "name": "KITTILA"
-        }
-      ]
-    },
-    {
-      "group_name": "FRANCE",
-      "group_items": [
-        {
-          "name": "AGEN"
-        },
-        {
-          "name": "AJACCIO"
-        },
-        {
-          "name": "AURILLAC"
-        },
-        {
-          "name": "BASTIA"
-        },
-        {
-          "name": "BIARRITZ"
-        },
-        {
-          "name": "BORDEAUX"
-        },
-        {
-          "name": "BREST"
-        },
-        {
-          "name": "BRIVE"
-        },
-        {
-          "name": "CALVI"
-        },
-        {
-          "name": "CASTRES-MAZAMET"
-        },
-        {
-          "name": "CLERMONT FERRAND"
-        },
-        {
-          "name": "FIGARI"
-        },
-        {
-          "name": "LANNION"
-        },
-        {
-          "name": "LE PUY"
-        },
-        {
-          "name": "LILLE"
-        },
-        {
-          "name": "LIMOGES"
-        },
-        {
-          "name": "LORIENT"
-        },
-        {
-          "name": "LOURDES-TARBES"
-        },
-        {
-          "name": "LYON"
-        },
-        {
-          "name": "LYON BRON"
-        },
-        {
-          "name": "MARSEILLE"
-        },
-        {
-          "name": "MONTPELLIER"
-        },
-        {
-          "name": "MULHOUSE-BASEL"
-        },
-        {
-          "name": "NANTES"
-        },
-        {
-          "name": "NICE"
-        },
-        {
-          "name": "PARIS"
-        },
-        {
-          "name": "PARIS CDG"
-        },
-        {
-          "name": "PARIS VILLA"
-        },
-        {
-          "name": "PAU"
-        },
-        {
-          "name": "PERIGUEUX"
-        },
-        {
-          "name": "PERPIGNAN"
-        },
-        {
-          "name": "QUIMPER"
-        },
-        {
-          "name": "RENNES"
-        },
-        {
-          "name": "RODEZ"
-        },
-        {
-          "name": "TOULON"
-        },
-        {
-          "name": "TOULOUSE"
-        }
-      ]
-    },
-    {
-      "group_name": "FRENCH GUIANA",
-      "group_items": [
-        {
-          "name": "CAYENNE"
-        }
-      ]
-    },
-    {
-      "group_name": "FRENCH POLYNESIA",
-      "group_items": [
-        {
-          "name": "PAPEETE"
-        }
-      ]
-    },
-    {
-      "group_name": "GABON",
-      "group_items": [
-        {
-          "name": "LIBREVILLE"
-        }
-      ]
-    },
-    {
-      "group_name": "GERMANY",
-      "group_items": [
-        {
-          "name": "BERLIN TEGEL"
-        },
-        {
-          "name": "BERLIN-SCHONEFEL"
-        },
-        {
-          "name": "BREMEN"
-        },
-        {
-          "name": "DORTMUND"
-        },
-        {
-          "name": "DUSSELDORF"
-        },
-        {
-          "name": "FRANKFURT-MAIN"
-        },
-        {
-          "name": "HAMBURG"
-        },
-        {
-          "name": "HANNOVER"
-        },
-        {
-          "name": "MUNICH"
-        },
-        {
-          "name": "NUREMBERG"
-        },
-        {
-          "name": "STUTTGART"
-        }
-      ]
-    },
-    {
-      "group_name": "GHANA",
-      "group_items": [
-        {
-          "name": "ACCRA"
-        }
-      ]
-    },
-    {
-      "group_name": "GREECE",
-      "group_items": [
-        {
-          "name": "ATHENS"
-        },
-        {
-          "name": "HERAKLION"
-        },
-        {
-          "name": "RHODES"
-        },
-        {
-          "name": "THESSALONIKI"
-        }
-      ]
-    },
-    {
-      "group_name": "GUADELOUPE",
-      "group_items": [
-        {
-          "name": "POINTE À PITRE"
-        }
-      ]
-    },
-    {
-      "group_name": "GUINEA",
-      "group_items": [
-        {
-          "name": "CONAKRY"
-        }
-      ]
-    },
-    {
-      "group_name": "HAITI",
-      "group_items": [
-        {
-          "name": "PORT AU PRINCE"
-        }
-      ]
-    },
-    {
-      "group_name": "HONG KONG",
-      "group_items": [
-        {
-          "name": "HONG KONG"
-        }
-      ]
-    },
-    {
-      "group_name": "HUNGARY",
-      "group_items": [
-        {
-          "name": "BUDAPEST"
-        }
-      ]
-    },
-    {
-      "group_name": "ICELAND",
-      "group_items": [
-        {
-          "name": "REYKJAVIK KEFLAVIK"
-        }
-      ]
-    },
-    {
-      "group_name": "INDIA",
-      "group_items": [
-        {
-          "name": "BENGALURU"
-        },
-        {
-          "name": "CHENNAI-MADRAS"
-        },
-        {
-          "name": "DELHI"
-        },
-        {
-          "name": "MUMBAI BOMBAY"
-        }
-      ]
-    },
-    {
-      "group_name": "IRAN (ISLAMIC REP. OF)",
-      "group_items": [
-        {
-          "name": "TEHERAN IMAM KHO"
-        }
-      ]
-    },
-    {
-      "group_name": "IRELAND",
-      "group_items": [
-        {
-          "name": "CORK"
-        },
-        {
-          "name": "DUBLIN"
-        }
-      ]
-    },
-    {
-      "group_name": "ISRAEL",
-      "group_items": [
-        {
-          "name": "OVDA"
-        },
-        {
-          "name": "TEL AVIV"
-        }
-      ]
-    },
-    {
-      "group_name": "ITALY",
-      "group_items": [
-        {
-          "name": "BOLOGNA"
-        },
-        {
-          "name": "CATANIA"
-        },
-        {
-          "name": "COMISO"
-        },
-        {
-          "name": "FLORENCE"
-        },
-        {
-          "name": "GENOVA"
-        },
-        {
-          "name": "MILAN"
-        },
-        {
-          "name": "MILAN-LINATE"
-        },
-        {
-          "name": "MILAN-MALPENSA"
-        },
-        {
-          "name": "NAPLES"
-        },
-        {
-          "name": "OLBIA"
-        },
-        {
-          "name": "PALERMO"
-        },
-        {
-          "name": "PISA"
-        },
-        {
-          "name": "ROME"
-        },
-        {
-          "name": "ROME FIUMICINO"
-        },
-        {
-          "name": "TURIN"
-        },
-        {
-          "name": "VENICE"
-        },
-        {
-          "name": "VERONA INTL"
-        }
-      ]
-    },
-    {
-      "group_name": "JAPAN",
-      "group_items": [
-        {
-          "name": "OSAKA KANSAI INT"
-        },
-        {
-          "name": "TOKYO"
-        },
-        {
-          "name": "TOKYO HANEDA"
-        },
-        {
-          "name": "TOKYO NARITA"
-        }
-      ]
-    },
-    {
-      "group_name": "JORDAN",
-      "group_items": [
-        {
-          "name": "AMMAN Q.ALIA"
-        }
-      ]
-    },
-    {
-      "group_name": "KAZAKHSTAN",
-      "group_items": [
-        {
-          "name": "ASTANA"
-        }
-      ]
-    },
-    {
-      "group_name": "KENYA",
-      "group_items": [
-        {
-          "name": "NAIROBI"
-        }
-      ]
-    },
-    {
-      "group_name": "KUWAIT",
-      "group_items": [
-        {
-          "name": "KUWAIT"
-        }
-      ]
-    },
-    {
-      "group_name": "LATVIA",
-      "group_items": [
-        {
-          "name": "RIGA"
-        }
-      ]
-    },
-    {
-      "group_name": "LEBANON",
-      "group_items": [
-        {
-          "name": "BEIRUT"
-        }
-      ]
-    },
-    {
-      "group_name": "LITHUANIA",
-      "group_items": [
-        {
-          "name": "VILNIUS"
-        }
-      ]
-    },
-    {
-      "group_name": "LUXEMBOURG",
-      "group_items": [
-        {
-          "name": "LUXEMBOURG"
-        }
-      ]
-    },
-    {
-      "group_name": "MADAGASCAR",
-      "group_items": [
-        {
-          "name": "ANTANANARIVO"
-        }
-      ]
-    },
-    {
-      "group_name": "MALI",
-      "group_items": [
-        {
-          "name": "BAMAKO"
-        }
-      ]
-    },
-    {
-      "group_name": "MALTA",
-      "group_items": [
-        {
-          "name": "MALTA"
-        }
-      ]
-    },
-    {
-      "group_name": "MARTINIQUE",
-      "group_items": [
-        {
-          "name": "FORT DE FRANCE"
-        }
-      ]
-    },
-    {
-      "group_name": "MAURITANIA",
-      "group_items": [
-        {
-          "name": "NOUAKCHOTT"
-        }
-      ]
-    },
-    {
-      "group_name": "MAURITIUS",
-      "group_items": [
-        {
-          "name": "MAURITIUS"
-        }
-      ]
-    },
-    {
-      "group_name": "MAYOTTE",
-      "group_items": [
-        {
-          "name": "DZAOUDZI"
-        }
-      ]
-    },
-    {
-      "group_name": "MEXICO",
-      "group_items": [
-        {
-          "name": "CANCUN"
-        },
-        {
-          "name": "MEXICO CITY"
-        }
-      ]
-    },
-    {
-      "group_name": "MONTENEGRO",
-      "group_items": [
-        {
-          "name": "PODGORICA"
-        }
-      ]
-    },
-    {
-      "group_name": "MOROCCO",
-      "group_items": [
-        {
-          "name": "AGADIR"
-        },
-        {
-          "name": "CASABLANCA"
-        },
-        {
-          "name": "ESSAOUIRA"
-        },
-        {
-          "name": "FES"
-        },
-        {
-          "name": "MARRAKECH"
-        },
-        {
-          "name": "OUARZAZATE"
-        },
-        {
-          "name": "OUJDA"
-        },
-        {
-          "name": "RABAT"
-        },
-        {
-          "name": "TANGIER"
-        }
-      ]
-    },
-    {
-      "group_name": "NETHERLANDS",
-      "group_items": [
-        {
-          "name": "AMSTERDAM"
-        },
-        {
-          "name": "ROTTERDAM"
-        }
-      ]
-    },
-    {
-      "group_name": "NETHERLANDS ANTILLES",
-      "group_items": [
-        {
-          "name": "ST MAARTEN"
-        }
-      ]
-    },
-    {
-      "group_name": "NIGER",
-      "group_items": [
-        {
-          "name": "NIAMEY"
-        }
-      ]
-    },
-    {
-      "group_name": "NIGERIA",
-      "group_items": [
-        {
-          "name": "LAGOS"
-        },
-        {
-          "name": "PORT HARCOURT"
-        }
-      ]
-    },
-    {
-      "group_name": "NORWAY",
-      "group_items": [
-        {
-          "name": "BERGEN"
-        },
-        {
-          "name": "OSLO"
-        }
-      ]
-    },
-    {
-      "group_name": "OMAN",
-      "group_items": [
-        {
-          "name": "MUSCAT"
-        }
-      ]
-    },
-    {
-      "group_name": "PAKISTAN",
-      "group_items": [
-        {
-          "name": "ISLAMABAD"
-        },
-        {
-          "name": "LAHORE"
-        }
-      ]
-    },
-    {
-      "group_name": "PANAMA",
-      "group_items": [
-        {
-          "name": "PANAMA CITY"
-        }
-      ]
-    },
-    {
-      "group_name": "PERU",
-      "group_items": [
-        {
-          "name": "LIMA"
-        }
-      ]
-    },
-    {
-      "group_name": "POLAND",
-      "group_items": [
-        {
-          "name": "KRAKOW"
-        },
-        {
-          "name": "WARSAW"
-        }
-      ]
-    },
-    {
-      "group_name": "PORTUGAL",
-      "group_items": [
-        {
-          "name": "FARO"
-        },
-        {
-          "name": "FUNCHAL"
-        },
-        {
-          "name": "LISBON"
-        },
-        {
-          "name": "PORTO"
-        }
-      ]
-    },
-    {
-      "group_name": "QATAR",
-      "group_items": [
-        {
-          "name": "DOHA"
-        }
-      ]
-    },
-    {
-      "group_name": "REUNION",
-      "group_items": [
-        {
-          "name": "ST DENIS REUNION"
-        }
-      ]
-    },
-    {
-      "group_name": "ROMANIA",
-      "group_items": [
-        {
-          "name": "BUCHAREST OTOPEN"
-        }
-      ]
-    },
-    {
-      "group_name": "RUSSIA",
-      "group_items": [
-        {
-          "name": "EKATERINBURG"
-        },
-        {
-          "name": "MOSCOW SHRMETEVO"
-        },
-        {
-          "name": "MOSCOW VNUKOVO"
-        },
-        {
-          "name": "ST PETERSBURG"
-        }
-      ]
-    },
-    {
-      "group_name": "SAO TOME AND PRINCIPE",
-      "group_items": [
-        {
-          "name": "SAO TOME"
-        }
-      ]
-    },
-    {
-      "group_name": "SAUDI ARABIA",
-      "group_items": [
-        {
-          "name": "JEDDAH"
-        },
-        {
-          "name": "RIYADH"
-        }
-      ]
-    },
-    {
-      "group_name": "SENEGAL",
-      "group_items": [
-        {
-          "name": "CAP SKIRRING"
-        },
-        {
-          "name": "DAKAR"
-        }
-      ]
-    },
-    {
-      "group_name": "SERBIA",
-      "group_items": [
-        {
-          "name": "BELGRADE"
-        },
-        {
-          "name": "PRISTINA"
-        }
-      ]
-    },
-    {
-      "group_name": "SEYCHELLES",
-      "group_items": [
-        {
-          "name": "MAHE-SEYCHELLES"
-        }
-      ]
-    },
-    {
-      "group_name": "SIERRA LEONE",
-      "group_items": [
-        {
-          "name": "FREETOWN"
-        }
-      ]
-    },
-    {
-      "group_name": "SINGAPORE",
-      "group_items": [
-        {
-          "name": "SINGAPORE"
-        }
-      ]
-    },
-    {
-      "group_name": "SLOVENIA",
-      "group_items": [
-        {
-          "name": "LJUBLJANA"
-        }
-      ]
-    },
-    {
-      "group_name": "SOUTH AFRICA",
-      "group_items": [
-        {
-          "name": "CAPE TOWN"
-        },
-        {
-          "name": "JOHANNESBURG"
-        }
-      ]
-    },
-    {
-      "group_name": "SOUTH KOREA",
-      "group_items": [
-        {
-          "name": "SEOUL INCHEON"
-        }
-      ]
-    },
-    {
-      "group_name": "SPAIN",
-      "group_items": [
-        {
-          "name": "ALICANTE"
-        },
-        {
-          "name": "ASTURIAS"
-        },
-        {
-          "name": "BARCELONA"
-        },
-        {
-          "name": "BILBAO"
-        },
-        {
-          "name": "FUERTEVENTURA"
-        },
-        {
-          "name": "IBIZA"
-        },
-        {
-          "name": "LANZAROTE"
-        },
-        {
-          "name": "LAS PALMAS"
-        },
-        {
-          "name": "MADRID"
-        },
-        {
-          "name": "MALAGA"
-        },
-        {
-          "name": "MENORCA"
-        },
-        {
-          "name": "PALMA"
-        },
-        {
-          "name": "SANTIAGO DE COMP."
-        },
-        {
-          "name": "SEVILLA"
-        },
-        {
-          "name": "ST CRUZ LA PALMA"
-        },
-        {
-          "name": "TENERIFE R.SOFIA"
-        },
-        {
-          "name": "VALENCIA"
-        }
-      ]
-    },
-    {
-      "group_name": "SWEDEN",
-      "group_items": [
-        {
-          "name": "GOTHENBURG"
-        },
-        {
-          "name": "STOCKHOLM ARLAND"
-        },
-        {
-          "name": "STOCKHOLM BROMMA"
-        }
-      ]
-    },
-    {
-      "group_name": "SWITZERLAND",
-      "group_items": [
-        {
-          "name": "BASEL-MULHOUSE"
-        },
-        {
-          "name": "GENEVA"
-        },
-        {
-          "name": "ZURICH"
-        }
-      ]
-    },
-    {
-      "group_name": "THAILAND",
-      "group_items": [
-        {
-          "name": "BANGKOK  INTL"
-        }
-      ]
-    },
-    {
-      "group_name": "TOGO",
-      "group_items": [
-        {
-          "name": "LOME"
-        }
-      ]
-    },
-    {
-      "group_name": "TUNISIA",
-      "group_items": [
-        {
-          "name": "DJERBA"
-        },
-        {
-          "name": "MONASTIR"
-        },
-        {
-          "name": "SFAX"
-        },
-        {
-          "name": "TOZEUR"
-        },
-        {
-          "name": "TUNIS"
-        }
-      ]
-    },
-    {
-      "group_name": "TURKEY",
-      "group_items": [
-        {
-          "name": "ANTALYA"
-        },
-        {
-          "name": "ISTANBUL ATATURK"
-        },
-        {
-          "name": "ISTANBUL SABIHA G."
-        },
-        {
-          "name": "IZMIR ADNAN MEND"
-        }
-      ]
-    },
-    {
-      "group_name": "TURKMENISTAN",
-      "group_items": [
-        {
-          "name": "ASHKHABAD"
-        }
-      ]
-    },
-    {
-      "group_name": "UKRAINE",
-      "group_items": [
-        {
-          "name": "KIEV BORISPOL"
-        }
-      ]
-    },
-    {
-      "group_name": "UNITED ARAB EMIRATES",
-      "group_items": [
-        {
-          "name": "ABU DHABI"
-        },
-        {
-          "name": "DUBAI"
-        }
-      ]
-    },
-    {
-      "group_name": "UNITED KINGDOM",
-      "group_items": [
-        {
-          "name": "ABERDEEN DYCE"
-        },
-        {
-          "name": "BELFAST"
-        },
-        {
-          "name": "BIRMINGHAM"
-        },
-        {
-          "name": "BRISTOL"
-        },
-        {
-          "name": "CARDIFF"
-        },
-        {
-          "name": "DONCASTER"
-        },
-        {
-          "name": "EAST MIDLANDS"
-        },
-        {
-          "name": "EDINBURGH"
-        },
-        {
-          "name": "EXETER"
-        },
-        {
-          "name": "GLASGOW"
-        },
-        {
-          "name": "LEEDS"
-        },
-        {
-          "name": "LIVERPOOL"
-        },
-        {
-          "name": "LONDON"
-        },
-        {
-          "name": "LONDON SOUTHEND"
-        },
-        {
-          "name": "LONDON-CITY"
-        },
-        {
-          "name": "LONDON-GATWICK"
-        },
-        {
-          "name": "LONDON-HEATHROW"
-        },
-        {
-          "name": "LONDON-LUTON"
-        },
-        {
-          "name": "MANCHESTER"
-        },
-        {
-          "name": "NEWCASTLE"
-        },
-        {
-          "name": "SOUTHAMPTON"
-        }
-      ]
-    },
-    {
-      "group_name": "URUGUAY",
-      "group_items": [
-        {
-          "name": "MONTEVIDEO"
-        }
-      ]
-    },
-    {
-      "group_name": "USA",
-      "group_items": [
-        {
-          "name": "ANCHORAGE"
-        },
-        {
-          "name": "ATLANTA"
-        },
-        {
-          "name": "BOSTON"
-        },
-        {
-          "name": "CHICAGO O HARE I"
-        },
-        {
-          "name": "CINCINNATI"
-        },
-        {
-          "name": "DALLAS-FT WORTH"
-        },
-        {
-          "name": "DENVER"
-        },
-        {
-          "name": "DETROIT WAYNE CO"
-        },
-        {
-          "name": "FORT LAUDERDALE"
-        },
-        {
-          "name": "HOUSTON INTERCON"
-        },
-        {
-          "name": "LOS ANGELES"
-        },
-        {
-          "name": "MIAMI"
-        },
-        {
-          "name": "MINNEAPOLIS"
-        },
-        {
-          "name": "NEW ORLEANS"
-        },
-        {
-          "name": "NEW YORK"
-        },
-        {
-          "name": "NEW YORK JFK"
-        },
-        {
-          "name": "NEW YORK NEWARK"
-        },
-        {
-          "name": "ORLANDO INTL"
-        },
-        {
-          "name": "PHILADELPHIA INTL"
-        },
-        {
-          "name": "RALEIGH DURHAM"
-        },
-        {
-          "name": "SALT LAKE CITY"
-        },
-        {
-          "name": "SAN DIEGO"
-        },
-        {
-          "name": "SAN FRANCISCO"
-        },
-        {
-          "name": "SANTA ANA"
-        },
-        {
-          "name": "SEATTLE"
-        },
-        {
-          "name": "TAMPA"
-        },
-        {
-          "name": "WASHINGTON DULLE"
-        }
-      ]
-    },
-    {
-      "group_name": "UZBEKISTAN",
-      "group_items": [
-        {
-          "name": "TASHKENT"
-        }
-      ]
-    },
-    {
-      "group_name": "VENEZUELA",
-      "group_items": [
-        {
-          "name": "CARACAS"
-        }
-      ]
-    },
-    {
-      "group_name": "VIET NAM",
-      "group_items": [
-        {
-          "name": "HANOI"
-        },
-        {
-          "name": "HO CHI MINH CITY"
-        }
-      ]
+  "airportId": "AAQ",
+  "arrivals": [
+    {
+      "flightNumber": "SU1546",
+      "scheduled": "2017-03-26 10:40:00",
+      "estimated": "",
+      "actual": "2017-03-26 10:35:00",
+      "status": "LANDED"
+    },
+    {
+      "flightNumber": "S71125",
+      "scheduled": "2017-03-26 10:50:00",
+      "estimated": "",
+      "actual": "2017-03-26 10:39:00",
+      "status": "LANDED"
+    },
+    {
+      "flightNumber": "FV6201",
+      "scheduled": "2017-03-26 11:15:00",
+      "estimated": "",
+      "actual": "2017-03-26 10:54:00",
+      "status": "LANDED"
+    },
+    {
+      "flightNumber": "FV6205",
+      "scheduled": "2017-03-26 12:50:00",
+      "estimated": "",
+      "actual": "2017-03-26 12:39:00",
+      "status": "LANDED"
+    },
+    {
+      "flightNumber": "S71123",
+      "scheduled": "2017-03-26 16:45:00",
+      "estimated": "",
+      "actual": "2017-03-26 16:38:00",
+      "status": "LANDED"
+    },
+    {
+      "flightNumber": "SU1142",
+      "scheduled": "2017-03-26 16:50:00",
+      "estimated": "",
+      "actual": "2017-03-26 17:03:00",
+      "status": "LANDED"
+    },
+    {
+      "flightNumber": "SU1546",
+      "scheduled": "2017-03-27 10:40:00",
+      "estimated": "",
+      "actual": "2017-03-27 11:45:00",
+      "status": "LANDED"
+    },
+    {
+      "flightNumber": "S71125",
+      "scheduled": "2017-03-27 10:50:00",
+      "estimated": "",
+      "actual": "2017-03-27 10:51:00",
+      "status": "LANDED"
+    },
+    {
+      "flightNumber": "FV6201",
+      "scheduled": "2017-03-27 11:05:00",
+      "estimated": "",
+      "actual": "2017-03-27 10:59:00",
+      "status": "LANDED"
+    },
+    {
+      "flightNumber": "ÔÂ6205",
+      "scheduled": "2017-03-27 12:50:00",
+      "estimated": "",
+      "actual": "2017-03-27 13:13:00",
+      "status": "LANDED"
+    },
+    {
+      "flightNumber": "S71123",
+      "scheduled": "2017-03-27 16:45:00",
+      "estimated": "",
+      "actual": "2017-03-27 16:35:00",
+      "status": "LANDED"
+    },
+    {
+      "flightNumber": "SU1142",
+      "scheduled": "2017-03-27 16:50:00",
+      "estimated": "",
+      "actual": "2017-03-27 17:17:00",
+      "status": "LANDED"
+    },
+    {
+      "flightNumber": "SU1546",
+      "scheduled": "2017-03-28 10:40:00",
+      "estimated": "",
+      "actual": "",
+      "status": "SCHEDULED"
+    },
+    {
+      "flightNumber": "S71125",
+      "scheduled": "2017-03-28 10:50:00",
+      "estimated": "",
+      "actual": "",
+      "status": "SCHEDULED"
+    },
+    {
+      "flightNumber": "FV6201",
+      "scheduled": "2017-03-28 11:05:00",
+      "estimated": "",
+      "actual": "",
+      "status": "SCHEDULED"
+    },
+    {
+      "flightNumber": "ÔÂ6205",
+      "scheduled": "2017-03-28 12:50:00",
+      "estimated": "",
+      "actual": "",
+      "status": "SCHEDULED"
+    },
+    {
+      "flightNumber": "S71123",
+      "scheduled": "2017-03-28 16:45:00",
+      "estimated": "",
+      "actual": "",
+      "status": "SCHEDULED"
+    },
+    {
+      "flightNumber": "SU1142",
+      "scheduled": "2017-03-28 16:50:00",
+      "estimated": "",
+      "actual": "",
+      "status": "SCHEDULED"
+    }
+  ],
+  "departure": [
+    {
+      "flightNumber": "SU1547",
+      "scheduled": "2017-03-26 11:30:00",
+      "estimated": "",
+      "actual": "2017-03-26 11:27:00",
+      "status": "DEPARTED"
+    },
+    {
+      "flightNumber": "S71126",
+      "scheduled": "2017-03-26 11:40:00",
+      "estimated": "",
+      "actual": "2017-03-26 11:35:00",
+      "status": "DEPARTED"
+    },
+    {
+      "flightNumber": "FV6202",
+      "scheduled": "2017-03-26 11:55:00",
+      "estimated": "",
+      "actual": "2017-03-26 11:52:00",
+      "status": "DEPARTED"
+    },
+    {
+      "flightNumber": "FV6206",
+      "scheduled": "2017-03-26 13:50:00",
+      "estimated": "",
+      "actual": "2017-03-26 13:44:00",
+      "status": "DEPARTED"
+    },
+    {
+      "flightNumber": "S71124",
+      "scheduled": "2017-03-26 17:35:00",
+      "estimated": "",
+      "actual": "",
+      "status": "DEPARTED"
+    },
+    {
+      "flightNumber": "SU1143",
+      "scheduled": "2017-03-26 18:20:00",
+      "estimated": "",
+      "actual": "2017-03-26 17:54:00",
+      "status": "DEPARTED"
+    },
+    {
+      "flightNumber": "SU1547",
+      "scheduled": "2017-03-27 11:30:00",
+      "estimated": "",
+      "actual": "2017-03-27 12:38:00",
+      "status": "DEPARTED"
+    },
+    {
+      "flightNumber": "S71126",
+      "scheduled": "2017-03-27 11:40:00",
+      "estimated": "",
+      "actual": "2017-03-27 11:37:00",
+      "status": "DEPARTED"
+    },
+    {
+      "flightNumber": "FV6202",
+      "scheduled": "2017-03-27 11:55:00",
+      "estimated": "",
+      "actual": "2017-03-27 11:48:00",
+      "status": "DEPARTED"
+    },
+    {
+      "flightNumber": "ÔÂ6206",
+      "scheduled": "2017-03-27 13:50:00",
+      "estimated": "",
+      "actual": "2017-03-27 13:55:00",
+      "status": "DEPARTED"
+    },
+    {
+      "flightNumber": "S71124",
+      "scheduled": "2017-03-27 17:35:00",
+      "estimated": "",
+      "actual": "2017-03-27 17:27:00",
+      "status": "DEPARTED"
+    },
+    {
+      "flightNumber": "SU1143",
+      "scheduled": "2017-03-27 18:00:00",
+      "estimated": "",
+      "actual": "2017-03-27 18:15:00",
+      "status": "DEPARTED"
+    },
+    {
+      "flightNumber": "SU1547",
+      "scheduled": "2017-03-28 11:30:00",
+      "estimated": "",
+      "actual": "",
+      "status": "SCHEDULED"
+    },
+    {
+      "flightNumber": "S71126",
+      "scheduled": "2017-03-28 11:40:00",
+      "estimated": "",
+      "actual": "",
+      "status": "SCHEDULED"
+    },
+    {
+      "flightNumber": "FV6202",
+      "scheduled": "2017-03-28 11:55:00",
+      "estimated": "",
+      "actual": "",
+      "status": "SCHEDULED"
+    },
+    {
+      "flightNumber": "ÔÂ6206",
+      "scheduled": "2017-03-28 13:50:00",
+      "estimated": "",
+      "actual": "",
+      "status": "SCHEDULED"
+    },
+    {
+      "flightNumber": "S71124",
+      "scheduled": "2017-03-28 17:35:00",
+      "estimated": "",
+      "actual": "",
+      "status": "SCHEDULED"
+    },
+    {
+      "flightNumber": "SU1143",
+      "scheduled": "2017-03-28 18:00:00",
+      "estimated": "",
+      "actual": "",
+      "status": "SCHEDULED"
     }
   ]
 }

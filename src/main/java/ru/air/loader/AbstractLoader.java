@@ -1,5 +1,6 @@
 package ru.air.loader;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import ru.air.entity.FlightAD;
@@ -8,6 +9,13 @@ import java.io.IOException;
 
 public class AbstractLoader {
     private BaseLoader loader;
+
+    private ObjectMapper objectMapper;
+
+    public AbstractLoader(){
+        objectMapper = new ObjectMapper();
+        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+    }
 
     public BaseLoader getLoader() {
         return loader;
@@ -19,7 +27,7 @@ public class AbstractLoader {
 
     public String parse() {
         FlightAD flight = loader.load();
-        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+        ObjectWriter ow = objectMapper.writer().withDefaultPrettyPrinter();
         String json = "";
         try {
             json = ow.writeValueAsString(flight);

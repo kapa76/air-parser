@@ -18,7 +18,7 @@
 13. ARH - Архангельск
 14. AMS - Амстердам North Holland
 15. ATL - Hartsfield Jackson Atlanta International, Georgia
-16. BCN - Barcelona International
+16. BCN - Barcelona International (htmlunit)
 17. BKK - Suvarnabhumi Bangkok
 18. BOM - Chhatrapati Shivaji International Mumbai
 19. CAN - Guangzhou Baiyun International Guangzhou
@@ -28,6 +28,11 @@
 
 "airport_id": "HKG", - аэропорт вылета, правильно я понимаю.
 "arrivals": [
+
+"codeshares": [
+"TX828",
+"ZX828"
+],
 
 airport_id - ID Аэропорта (согласно кодировки IATA)
 arrivals - массив с данными о прилетах

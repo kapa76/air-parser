@@ -42,7 +42,7 @@ public class BarselonaLoader extends BaseLoader {
 
     private void loadDeparture(List<FlightDetail> departure) {
         try {
-            HtmlPage page = getWebClient().getPage(arrivalUrl);
+            HtmlPage page = getWebClient().getPage(departuresUrl);
 
             HtmlSelect select = (HtmlSelect) page.getElementById("origin_ac");
             HtmlOption option = select.getOptionByValue("BCN");
@@ -123,6 +123,7 @@ public class BarselonaLoader extends BaseLoader {
 
     private void loadArrival(List<FlightDetail> arrivals) {
         try {
+            int pageNumber = 0;
             HtmlPage page = getWebClient().getPage(arrivalUrl);
             HtmlAnchor htmlAnchor = page.getAnchorByHref("/csee/Satellite/infovuelos/en/?mov=L");
             page = htmlAnchor.click();
@@ -141,13 +142,14 @@ public class BarselonaLoader extends BaseLoader {
                     HtmlAnchor next = page.getAnchorByText("Next");
                     page = next.click();
                     body = page.asXml();
+                    pageNumber++;
                 } catch (ElementNotFoundException exception) {
                     break;
                 }
             }
 
         } catch (Exception exception) {
-
+            System.out.println(exception.getMessage());
         }
 
     }

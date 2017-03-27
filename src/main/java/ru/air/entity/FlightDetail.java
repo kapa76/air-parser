@@ -1,15 +1,17 @@
 package ru.air.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import ru.air.common.ArrivalStatus;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.util.List;
 
-/**
- * Created by Admin on 19.10.2016.
- */
 public class FlightDetail implements Serializable {
     private String flightNumber; //номер рейса (согласно кодировки IATA)
+
+    @JsonProperty("codeshares")
+    private List<String> codeShares;
+
     private String scheduled;      // дата/время приземления по расписанию по местному времени аэропорта в формате YYYY-mm-dd HH:MM:SS
     private String estimated;      //прогнозируемые дата/время приземления (если есть) по местному времени аэропорта в формате YYYY-mm-dd HH:MM:SS
     private String actual;         //фактические дата/время приземления (если есть) по местному времени аэропорта в формате YYYY-mm-dd HH:MM:SS
@@ -68,5 +70,13 @@ public class FlightDetail implements Serializable {
 
     public void setActual(String actual) {
         this.actual = actual;
+    }
+
+    public List<String> getCodeShares() {
+        return codeShares;
+    }
+
+    public void setCodeShares(List<String> codeShares) {
+        this.codeShares = codeShares;
     }
 }
